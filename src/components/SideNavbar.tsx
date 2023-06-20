@@ -9,10 +9,10 @@ import {
   DrawerHeader,
   DrawerBody,
   Icon,
-  Flex,
 } from "@chakra-ui/react";
 import { RiMenu3Fill } from "react-icons/ri";
 import MenuItems from "./MenuItems";
+import ColorModeChange from "./ColorModeChange";
 const SideNavbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -26,13 +26,16 @@ const SideNavbar = () => {
 
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerOverlay />
+
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Menu</DrawerHeader>
+          <Box marginBottom={10}>
+            <DrawerHeader textAlign="center">
+              <ColorModeChange /> Dark Mode
+            </DrawerHeader>
+          </Box>
           <DrawerBody>
-            <Flex direction="column">
-              <MenuItems />
-            </Flex>
+            <MenuItems />
           </DrawerBody>
         </DrawerContent>
       </Drawer>

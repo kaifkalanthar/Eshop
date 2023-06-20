@@ -1,4 +1,13 @@
-import { HStack, Image, Heading, Show, Icon } from "@chakra-ui/react";
+import {
+  HStack,
+  Image,
+  Heading,
+  Show,
+  Icon,
+  Stack,
+  Box,
+  Text,
+} from "@chakra-ui/react";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { TbShoppingBag } from "react-icons/tb";
 import logo from "../assets/logo.jpg";
@@ -16,8 +25,23 @@ const Navbar = () => {
       </HStack>
       <HStack spacing={5}>
         <Show above="md">
+          <Stack>
+            <Box
+              bg="red"
+              borderRadius={50}
+              width={6}
+              marginBottom={-8}
+              marginLeft={7}
+              zIndex={999}
+            >
+              <Text size="10px" textAlign="center">
+                1
+              </Text>
+            </Box>
+            <Icon as={TbShoppingBag} boxSize="40px" />
+          </Stack>
           <Icon as={MdOutlineAccountCircle} boxSize="40px" />
-          <Icon as={TbShoppingBag} boxSize="40px" />
+
           <ColorModeChange />
         </Show>
         <Show below="sm">
