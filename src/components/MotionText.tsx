@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Heading, Text } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
 interface Props {
