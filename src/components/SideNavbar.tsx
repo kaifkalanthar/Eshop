@@ -31,7 +31,7 @@ const SideNavbar = () => {
           <DrawerCloseButton />
           <Box marginBottom={10}>
             <DrawerHeader textAlign="center">
-              <ColorModeChange /> Dark Mode
+              <ColorModeChange /> Light Mode
             </DrawerHeader>
           </Box>
           <DrawerBody>

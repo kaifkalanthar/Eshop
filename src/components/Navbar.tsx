@@ -24,7 +24,7 @@ const Navbar = () => {
         </Heading>
       </HStack>
       <HStack spacing={5}>
-        <Show above="md">
+        <Show above="sm">
           <Stack>
             <Box
               bg="red"
