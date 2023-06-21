@@ -13,12 +13,15 @@ import { TbShoppingBag } from "react-icons/tb";
 import logo from "../assets/logo.jpg";
 import SideNavbar from "./SideNavbar";
 import ColorModeChange from "./ColorModeChange";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <HStack padding={5} display="flex" justify="space-between">
       <HStack overflow="hidden" spacing={2}>
-        <Image src={logo} borderRadius={5} boxSize="60px" objectFit="cover" />
+        <Link to="/">
+          <Image src={logo} borderRadius={5} boxSize="60px" objectFit="cover" />
+        </Link>
         <Heading size="xl" fontFamily="cursive" fontWeight="thin">
           Eshop
         </Heading>

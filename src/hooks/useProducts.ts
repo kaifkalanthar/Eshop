@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import ApiClient from "../services/api-client";
-
+import ApiClient, { FetchResponse } from "../services/api-client";
+import ms from "ms";
+import productStore from "../store/ProductStore";
 export interface Product {
   id: number;
   title: string;
@@ -14,11 +15,28 @@ export interface Product {
   thumbnail: string;
   images: string[];
 }
-const apiClient = new ApiClient<Product>("/products");
-const useProducts = () =>
-  useQuery({
-    queryKey: ["products"],
-    queryFn: () => apiClient.getAll(),
+
+const useProducts = () => {
+  const productQuery = productStore((s) => s.productQuery);
+  const apiClient = new ApiClient<Product>(
+    productQuery.category !== ""
+      ? `products/category/${productQuery.category}`
+      : productQuery.searchQuery !== ""
+      ? "products/search"
+      : "products"
+  );
+  return useQuery<FetchResponse<Product>, Error>({
+    queryKey: ["products", productQuery],
+    queryFn: () =>
+      apiClient.getAll({
+        params: {
+          limit: productQuery.limit,
+          q: productQuery.searchQuery,
+        },
+      }),
+    staleTime: ms("24h"),
+    keepPreviousData: true,
   });
+};
 
 export default useProducts;

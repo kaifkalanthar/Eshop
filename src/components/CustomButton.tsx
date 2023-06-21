@@ -1,13 +1,13 @@
 import { Button } from "@chakra-ui/react";
 import { ReactNode } from "react";
-import { useNavigate } from "react-router-dom";
+
 interface Props {
   children: ReactNode | ReactNode[];
+  handleOnclick?: () => void;
   width?: any;
 }
 
-const CustomButton = ({ children, width }: Props) => {
-  const navigate = useNavigate();
+const CustomButton = ({ children, handleOnclick, width }: Props) => {
   return (
     <Button
       width={width ? width : 150}
@@ -15,7 +15,7 @@ const CustomButton = ({ children, width }: Props) => {
       transition="ease-in 0.1s"
       _hover={{ bg: "pink.400" }}
       color="black"
-      onClick={() => navigate("products")}
+      onClick={handleOnclick}
     >
       {children}
     </Button>

@@ -1,18 +1,18 @@
 import {
-  useDisclosure,
   Box,
   Button,
   Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  DrawerHeader,
   DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
   Icon,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { RiMenu3Fill } from "react-icons/ri";
-import MenuItems from "./MenuItems";
 import ColorModeChange from "./ColorModeChange";
+import MenuItems from "./MenuItems";
 const SideNavbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 

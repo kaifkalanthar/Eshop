@@ -2,17 +2,19 @@ import {
   GridItem,
   Heading,
   Icon,
+  Image,
   SimpleGrid,
   Stack,
   Text,
-  Image,
 } from "@chakra-ui/react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 import heroImage from "../assets/hero.png";
 import CustomButton from "./CustomButton";
 import MotionTextContainer from "./MotionText";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   return (
     <SimpleGrid
       columns={{ sm: 1, md: 2 }}
@@ -36,7 +38,7 @@ const HeroSection = () => {
             Aperiam labore inventore
           </MotionTextContainer>
 
-          <CustomButton>
+          <CustomButton handleOnclick={() => navigate("/products")}>
             <Text>BuyNow</Text>
             <Icon as={AiOutlineShoppingCart} />
           </CustomButton>

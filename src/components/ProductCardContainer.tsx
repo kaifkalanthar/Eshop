@@ -10,7 +10,6 @@ const ProductCardContainer = ({ children }: Props) => {
         transform: "scale(1.03)",
         transition: "transform .15s ease-in",
       }}
-      boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px"
       borderRadius={10}
       overflow={"hidden"}
     >

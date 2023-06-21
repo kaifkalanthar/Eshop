@@ -8,6 +8,7 @@ import {
   Box,
   Image,
   Text,
+  Divider,
 } from "@chakra-ui/react";
 import CustomButton from "./CustomButton";
 import { Product } from "../hooks/useProducts";
@@ -16,14 +17,14 @@ interface Props {
 }
 const ProductCard = ({ product }: Props) => {
   return (
-    <Card boxShadow={"none"} minHeight="100%">
-      <Box>
+    <Card shadow="none">
+      <Box maxHeight="350px" overflow="hidden">
         <Image
           src={product.images[1] ? product.images[1] : product.images[0]}
-          maxHeight="300px"
           width="100%"
         />
       </Box>
+      <Divider color="gray.200" />
       <CardBody>
         <Stack spacing={2}>
           <HStack justify="space-between">
