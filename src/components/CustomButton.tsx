@@ -16,6 +16,7 @@ const CustomButton = ({ children, handleOnclick, width }: Props) => {
       _hover={{ bg: "pink.400" }}
       color="black"
       onClick={handleOnclick}
+      type="submit"
     >
       {children}
     </Button>

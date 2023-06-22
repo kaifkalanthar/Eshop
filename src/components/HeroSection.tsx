@@ -15,6 +15,7 @@ import MotionTextContainer from "./MotionText";
 
 const HeroSection = () => {
   const navigate = useNavigate();
+  console.log(import.meta.env.VITE_API_KEY);
   return (
     <SimpleGrid
       columns={{ sm: 1, md: 2 }}

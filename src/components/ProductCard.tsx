@@ -7,7 +7,6 @@ import {
   Heading,
   Box,
   Image,
-  Text,
   Divider,
 } from "@chakra-ui/react";
 import CustomButton from "./CustomButton";
@@ -28,10 +27,11 @@ const ProductCard = ({ product }: Props) => {
       <CardBody>
         <Stack spacing={2}>
           <HStack justify="space-between">
-            <Heading size={"md"}>{product.title}</Heading>
+            <Heading size={"md"} fontWeight="thin">
+              {product.title}
+            </Heading>
             <ProductRating rating={product.rating} />
           </HStack>
-          <Text fontSize={"sm"}>{product.description}</Text>
           <HStack justify="space-between">
             <Heading size="md">{`$${product.price}`}</Heading>
             <CustomButton width={100}>Cart</CustomButton>

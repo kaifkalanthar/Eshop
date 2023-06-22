@@ -2,6 +2,7 @@ import { Box, Flex, Heading, Icon, Stack, Text } from "@chakra-ui/react";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import MenuItemContainer from "./MenuItemContainer";
 import { TbShoppingBag } from "react-icons/tb";
+import { Link } from "react-router-dom";
 
 const MenuItems = () => {
   return (
@@ -23,10 +24,12 @@ const MenuItems = () => {
           </Box>
           <Heading size="lg">Cart</Heading>
         </MenuItemContainer>
-        <MenuItemContainer>
-          <Icon as={MdOutlineAccountCircle} boxSize="40px" />
-          <Heading size="lg">Account</Heading>
-        </MenuItemContainer>
+        <Link to="login">
+          <MenuItemContainer>
+            <Icon as={MdOutlineAccountCircle} boxSize="40px" />
+            <Heading size="lg">Account</Heading>
+          </MenuItemContainer>
+        </Link>
       </Flex>
     </Stack>
   );

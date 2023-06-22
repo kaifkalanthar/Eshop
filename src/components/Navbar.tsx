@@ -43,7 +43,9 @@ const Navbar = () => {
             </Box>
             <Icon as={TbShoppingBag} boxSize="40px" />
           </Stack>
-          <Icon as={MdOutlineAccountCircle} boxSize="40px" />
+          <Link to="login">
+            <Icon as={MdOutlineAccountCircle} boxSize="40px" />
+          </Link>
 
           <ColorModeChange />
         </Show>
