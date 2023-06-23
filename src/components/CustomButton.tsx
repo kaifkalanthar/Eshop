@@ -5,9 +5,10 @@ interface Props {
   children: ReactNode | ReactNode[];
   handleOnclick?: () => void;
   width?: any;
+  valid?: boolean;
 }
 
-const CustomButton = ({ children, handleOnclick, width }: Props) => {
+const CustomButton = ({ children, handleOnclick, width, valid }: Props) => {
   return (
     <Button
       width={width ? width : 150}
@@ -17,6 +18,7 @@ const CustomButton = ({ children, handleOnclick, width }: Props) => {
       color="black"
       onClick={handleOnclick}
       type="submit"
+      isDisabled={valid}
     >
       {children}
     </Button>

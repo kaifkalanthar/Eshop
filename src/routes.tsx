@@ -4,6 +4,7 @@ import HeroSection from "./components/HeroSection";
 import ProductSection from "./components/ProductSection";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
+import UserProfile from "./components/UserProfile";
 
 const routes = createBrowserRouter([
   {
@@ -13,7 +14,8 @@ const routes = createBrowserRouter([
       { index: true, element: <HeroSection /> },
       { path: "products", element: <ProductSection /> },
       { path: "login", element: <LoginForm /> },
-      { path: "register", element: <RegisterForm /> },
+      { path: "login/register", element: <RegisterForm /> },
+      { path: "profile", element: <UserProfile /> },
     ],
   },
 ]);
