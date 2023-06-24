@@ -14,7 +14,7 @@ const routes = createBrowserRouter([
       { index: true, element: <HeroSection /> },
       { path: "products", element: <ProductSection /> },
       { path: "login", element: <LoginForm /> },
-      { path: "login/register", element: <RegisterForm /> },
+      { path: "register", element: <RegisterForm /> },
       { path: "profile", element: <UserProfile /> },
     ],
   },

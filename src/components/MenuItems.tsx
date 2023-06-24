@@ -1,10 +1,23 @@
-import { Box, Flex, Heading, Icon, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Icon,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import MenuItemContainer from "./MenuItemContainer";
 import { TbShoppingBag } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import userStore from "../store/UserStore";
+import { IoIosLogOut } from "react-icons/io";
+import Authentication from "../services/auth";
 
 const MenuItems = () => {
+  const user = userStore((s) => s.user);
+  const auth = new Authentication();
   return (
     <Stack spacing={5} align="end">
       <Flex direction="column" gap={5}>
@@ -24,12 +37,25 @@ const MenuItems = () => {
           </Box>
           <Heading size="lg">Cart</Heading>
         </MenuItemContainer>
-        <Link to="login">
+        <Link to={user.uid ? "profile" : "login"}>
           <MenuItemContainer>
             <Icon as={MdOutlineAccountCircle} boxSize="40px" />
             <Heading size="lg">Account</Heading>
           </MenuItemContainer>
         </Link>
+        {user.uid && (
+          <Button
+            bg="transparent"
+            onClick={() => auth.logout()}
+            marginLeft={-4}
+            _hover={{ bgColor: "transparent" }}
+          >
+            <MenuItemContainer>
+              <Icon as={IoIosLogOut} boxSize="40px" />
+              <Heading size="lg">Logout</Heading>
+            </MenuItemContainer>{" "}
+          </Button>
+        )}
       </Flex>
     </Stack>
   );

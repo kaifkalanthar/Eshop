@@ -16,7 +16,7 @@ const SearchInput = () => {
       <InputGroup>
         <InputLeftElement children={<BsSearch />} />
         <Input
-          placeholder="Search phones, shoes and more..."
+          placeholder="Search perfume, shoes and more..."
           borderRadius={20}
           ref={searchRef}
         />

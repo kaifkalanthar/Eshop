@@ -12,7 +12,7 @@ const CategorySelector = () => {
         key={1}
         rightIcon={<BsChevronDown />}
         colorScheme="pink"
-        width={{ sm: "50%", md: "40%", lg: "40%" }}
+        width="80%"
       >
         Category{" "}
         {productQuery.category !== "" ? `: ${productQuery.category}` : ""}

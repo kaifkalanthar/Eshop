@@ -10,7 +10,7 @@ const Layout = () => {
     const getStoredData = localStorage.getItem("user");
     if (getStoredData) {
       const user = JSON.parse(getStoredData);
-      setUser(user[0]);
+      setUser(user);
     }
   });
 
