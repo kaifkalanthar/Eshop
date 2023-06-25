@@ -19,8 +19,8 @@ const CategorySelector = () => {
       </MenuButton>
       <MenuList height="70vh" overflowY="scroll">
         {categories.map((category, index) => (
-          <MenuItem key={index} onClick={() => setCategory(category)}>
-            {category}
+          <MenuItem key={index} onClick={() => setCategory(category.name)}>
+            {category.name}
           </MenuItem>
         ))}
       </MenuList>

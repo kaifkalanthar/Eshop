@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 import userStore from "../store/UserStore";
 import { useEffect } from "react";
+import Footer from "../components/Footer";
 
 const Layout = () => {
   const setUser = userStore((s) => s.setUser);
@@ -20,6 +21,7 @@ const Layout = () => {
       <Box paddingX={5}>
         <Outlet />
       </Box>
+      <Footer />
     </>
   );
 };

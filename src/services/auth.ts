@@ -48,7 +48,6 @@ class Authentication {
 
   googleAuthProvider = async () => {
     await signInWithPopup(auth, provider).then((res) => this.setUser(res.user));
-    window.location.href = "/";
   };
 
   setUser = (user: User | UserInfo) => {

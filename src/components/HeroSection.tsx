@@ -19,7 +19,6 @@ const HeroSection = () => {
     <SimpleGrid
       columns={{ sm: 1, md: 2 }}
       templateColumns={{ md: "0.4fr 0.5fr" }}
-      padding={5}
       spacing={5}
     >
       <GridItem boxSize="70%" margin="0 auto">
