@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import CustomButton from "./CustomButton";
 import { Product } from "../hooks/useProducts";
+
 interface Props {
   product: Product;
 }

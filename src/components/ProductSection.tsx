@@ -7,6 +7,7 @@ import ProductCard from "./ProductCard";
 import ProductCardContainer from "./ProductCardContainer";
 import ProductCardSkeleton from "./ProductCardSkeleton";
 import SearchInput from "./SearchInput";
+import { Link } from "react-router-dom";
 
 const ProductSection = () => {
   const { data, error } = useProducts();
@@ -45,9 +46,11 @@ const ProductSection = () => {
         {data.products.length < 1 && <Heading>No Data Found</Heading>}
         <SimpleGrid columns={{ sm: 2, md: 4 }} spacing={8}>
           {data?.products.map((product) => (
-            <ProductCardContainer key={product.id}>
-              <ProductCard product={product} />
-            </ProductCardContainer>
+            <Link key={product.id} to={`/products/${product.id}`}>
+              <ProductCardContainer>
+                <ProductCard product={product} />
+              </ProductCardContainer>
+            </Link>
           ))}
         </SimpleGrid>
 
