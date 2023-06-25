@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Image } from "@chakra-ui/react";
 import { Feature } from "../data/features";
 import MotionTextContainer from "./MotionText";
 interface Props {
@@ -31,9 +31,7 @@ const Features = ({ feature }: Props) => {
               marginY="auto"
             >
               <Heading>{feature.title}</Heading>
-              <MotionTextContainer>
-                <Text paddingY={5}>{feature.description}</Text>
-              </MotionTextContainer>
+              <MotionTextContainer>{feature.description}</MotionTextContainer>
             </Box>
           </Flex>
         </Flex>

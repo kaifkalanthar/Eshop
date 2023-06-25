@@ -21,7 +21,14 @@ const CategorySection = () => {
       >
         <Box display={"flex"} gap={5}>
           {categories.map((category, index) => (
-            <Box key={index} width={"250px"}>
+            <Box
+              key={index}
+              width={"250px"}
+              _hover={{
+                transform: "scale(1.03)",
+                transition: "transform .15s ease-in",
+              }}
+            >
               <Stack position="relative" overflow="hidden" borderRadius={10}>
                 <Link onClick={() => setCategory(category.name)} to="products">
                   <Image
