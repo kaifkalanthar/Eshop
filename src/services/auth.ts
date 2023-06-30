@@ -9,15 +9,19 @@ import {
 import { auth, provider } from "./firebase-config";
 import { useToast } from "@chakra-ui/react";
 import ms from "ms";
+import ApiClient from "./api-client";
 
 class Authentication {
   toast = useToast();
   registerUser = async (username: string, email: string, password: string) => {
+    const apiClient = new ApiClient();
     await createUserWithEmailAndPassword(auth, email, password)
       .then(async (res) => {
         await updateProfile(res.user, {
           displayName: username,
         });
+
+        apiClient.setSavedProducts(res.user.uid);
       })
       .catch(() => {
         this.toast({
@@ -33,7 +37,7 @@ class Authentication {
 
   loginUser = async (email: string, password: string) => {
     await signInWithEmailAndPassword(auth, email, password)
-      .then((res) => this.setUser(res.user.providerData[0]))
+      .then((res) => this.setUser(res.user))
       .catch(() => {
         this.toast({
           title: "Check email or password",

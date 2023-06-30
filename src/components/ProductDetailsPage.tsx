@@ -1,60 +1,34 @@
-import {
-  GridItem,
-  SimpleGrid,
-  Image,
-  Heading,
-  Text,
-  Stack,
-  HStack,
-} from "@chakra-ui/react";
-import useProduct from "../hooks/useProduct";
+import { Box, GridItem, SimpleGrid } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
-import ProductRating from "./ProductRating";
-import { useState } from "react";
+import useProduct from "../hooks/useProduct";
+import { Product } from "../hooks/useProducts";
+import ApiClient from "../services/api-client";
+import CheckoutStore from "../store/CheckoutStore";
+import CustomButton from "./CustomButton";
+import ImageStack from "./ImageStack";
+import ProductAttributes from "./ProductAttributes";
+import CheckoutButton from "./CheckoutButton";
 
 const ProductDetailsPage = () => {
   const { id } = useParams();
   const { data } = useProduct(id!);
-  const [page, setPage] = useState(0);
+
+  if (!data) return;
+
   return (
     <SimpleGrid columns={{ sm: 1, md: 2 }} spacing={5} paddingY={[5, 5, 10]}>
-      <GridItem marginBottom={5}>
-        <Image
-          src={data?.images[page]}
-          alignSelf={"center"}
-          borderRadius={5}
-          textAlign="center"
-          boxSize="80%"
-        />
-        <HStack py={5} spacing={5}>
-          {data?.images.map((image, index) => (
-            <Image
-              overflowX={"scroll"}
-              cursor={"pointer"}
-              key={index}
-              onClick={() => setPage(index)}
-              borderRadius={10}
-              src={image}
-              boxSize="90px"
-            />
-          ))}
-        </HStack>
+      <GridItem marginBottom={5} marginX="auto">
+        <ImageStack data={data} />
       </GridItem>
 
       <GridItem>
-        <Heading>{data?.title}</Heading>
-        <Text>{data?.description}</Text>
-        <HStack justify={"space-between"} marginY="auto">
-          <Stack spacing={3} py={10}>
-            <Heading>${data?.price}</Heading>
-            <Text>{"Discount Percentage " + data?.discountPercentage}</Text>
-            <ProductRating rating={data?.rating!} />
-          </Stack>
-          <Stack spacing={3} p={10}>
-            <Text>Stoke available: {data?.stock}</Text>
-            <Text>Category: {data?.category}</Text>
-          </Stack>
-        </HStack>
+        <ProductAttributes data={data} />
+        <Box marginX="auto" width="80%">
+          <CustomButton width="100%" bg={"transparent"} margin={5}>
+            Add to Cart
+          </CustomButton>
+          <CheckoutButton label="Buy Now" data={[data]} />
+        </Box>
       </GridItem>
     </SimpleGrid>
   );
