@@ -1,13 +1,10 @@
 import { Box, GridItem, SimpleGrid } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import useProduct from "../hooks/useProduct";
-import { Product } from "../hooks/useProducts";
-import ApiClient from "../services/api-client";
-import CheckoutStore from "../store/CheckoutStore";
+import CheckoutButton from "./CheckoutButton";
 import CustomButton from "./CustomButton";
 import ImageStack from "./ImageStack";
 import ProductAttributes from "./ProductAttributes";
-import CheckoutButton from "./CheckoutButton";
 
 const ProductDetailsPage = () => {
   const { id } = useParams();
