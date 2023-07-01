@@ -6,7 +6,7 @@ import { Product } from "./useProducts";
 export interface SavedProducts {
   userId: string;
   cart: Product[];
-  order: any[];
+  orderedProducts: Product[];
 }
 
 const useSavedProducts = () => {

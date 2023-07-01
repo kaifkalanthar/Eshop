@@ -18,16 +18,19 @@ import CustomButton from "./CustomButton";
 import { getDiscount } from "./ProductAttributes";
 import ProductRating from "./ProductRating";
 import CheckoutStore from "../store/CheckoutStore";
+import useSavedProducts from "../hooks/useSavedProducts";
 
 interface Props {
   product: Product;
 }
 
 const ProductCard = ({ product }: Props) => {
-  const user = userStore((s) => s.user);
   const navigate = useNavigate();
   const toast = useToast();
+
+  const user = userStore((s) => s.user);
   const { checkoutItems, setCheckoutItems } = CheckoutStore();
+  const getSavedProducts = useSavedProducts();
   const apiClient = new ApiClient();
 
   const handleCartButton = async (product: Product) => {
@@ -40,10 +43,18 @@ const ProductCard = ({ product }: Props) => {
     let cartItems: Product[] = [];
     if (data === undefined) {
       cartItems = [product];
-      apiClient.updateCartItem(user.uid, [product]);
+      apiClient.updateCartItem(
+        user.uid,
+        [product],
+        getSavedProducts.data?.orderedProducts
+      );
     } else {
       cartItems = [...checkoutItems, product];
-      apiClient.updateCartItem(user.uid, cartItems);
+      apiClient.updateCartItem(
+        user.uid,
+        cartItems,
+        getSavedProducts.data?.orderedProducts
+      );
     }
     toast({
       title: "Added to cart",

@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { Product } from "../hooks/useProducts";
 import { SavedProducts } from "../hooks/useSavedProducts";
+import OrderedProductStore from "../store/OrderedProducts";
 
 export interface FetchResponse<T> {
   limit: number;
@@ -29,8 +30,8 @@ class ApiClient<T> {
       .then((res) => res.data);
   };
 
-  checkout = (selectedItems: Product[]) => {
-    stripeAxiosInstance
+  checkout = (orderedProduct: Product[], selectedItems: Product[]) => {
+    return stripeAxiosInstance
       .post(this.endpoint, {
         selectedItems,
       })
@@ -38,8 +39,14 @@ class ApiClient<T> {
         if (res.data.url) {
           window.location.href = res.data.url;
         }
+        return res.data;
       })
-      .catch((error) => console.log(error.message));
+      .catch(() => {
+        const setOrderedProducts = OrderedProductStore(
+          (s) => s.setOrderedProducts
+        );
+        setOrderedProducts(orderedProduct);
+      });
   };
 
   setSavedProducts = async (userId: string, cart?: Product[]) => {
@@ -57,9 +64,14 @@ class ApiClient<T> {
     return res.data;
   };
 
-  updateCartItem = async (userId: string, cartItems: Product[]) => {
+  updateCartItem = async (
+    userId: string,
+    cartItems: Product[],
+    orderedProducts?: Product[]
+  ) => {
     return await firebaseAxiosInstance
       .put<SavedProducts>(`/${userId}.json`, {
+        orderedProducts,
         cart: cartItems,
         userId: userId,
       })
@@ -76,7 +88,7 @@ export const firebaseAxiosInstance = axios.create({
 });
 
 export const stripeAxiosInstance = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: "https://stripapi.onrender.com/api",
 }); 
 
 export default ApiClient;
