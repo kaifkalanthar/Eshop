@@ -1,9 +1,11 @@
+import { HStack, Image } from "@chakra-ui/react";
 import { useState } from "react";
 import { Product } from "../hooks/useProducts";
-import { HStack, Image } from "@chakra-ui/react";
+
 interface Props {
   data: Product;
 }
+
 const ImageStack = ({ data }: Props) => {
   const [page, setPage] = useState(0);
   return (
@@ -14,10 +16,10 @@ const ImageStack = ({ data }: Props) => {
         borderRadius={5}
         boxSize="80%"
       />
-      <HStack py={5} spacing={5} marginX={"auto"}>
+      <HStack py={5} spacing={5} justify={"center"}>
         {data?.images.map((image, index) => (
           <Image
-            border={page === index ? "5px solid green" : ""}
+            border={page === index ? "5px solid pink" : ""}
             overflowX={"scroll"}
             cursor={"pointer"}
             key={index}

@@ -36,33 +36,41 @@ const ProductCard = ({ product }: Props) => {
   const handleCartButton = async (product: Product) => {
     if (!user.uid) {
       navigate("/login");
-    }
-
-    setCheckoutItems([...checkoutItems, product]);
-    const data = await apiClient.getSavedProducts(user.uid);
-    let cartItems: Product[] = [];
-    if (data === undefined) {
-      cartItems = [product];
-      apiClient.updateCartItem(
-        user.uid,
-        [product],
-        getSavedProducts.data?.orderedProducts
-      );
+      toast({
+        title: "Login or Sign up",
+        status: "info",
+        duration: ms("5s"),
+        isClosable: false,
+        position: "top",
+      });
     } else {
-      cartItems = [...checkoutItems, product];
-      apiClient.updateCartItem(
-        user.uid,
-        cartItems,
-        getSavedProducts.data?.orderedProducts
-      );
+      setCheckoutItems([...checkoutItems, product]);
+      const data = await apiClient.getSavedProducts(user.uid);
+      let cartItems: Product[] = [];
+      if (data === undefined) {
+        cartItems = [product];
+        apiClient.updateCartItem(
+          user.uid,
+          [product],
+          getSavedProducts.data?.orderedProducts
+        );
+      } else {
+        cartItems = [...checkoutItems, product];
+        apiClient.updateCartItem(
+          user.uid,
+          cartItems,
+          getSavedProducts.data?.orderedProducts
+        );
+      }
+
+      toast({
+        title: "Added to cart",
+        status: "success",
+        duration: ms("5s"),
+        isClosable: false,
+        position: "top",
+      });
     }
-    toast({
-      title: "Added to cart",
-      status: "success",
-      duration: ms("5s"),
-      isClosable: false,
-      position: "top",
-    });
   };
   return (
     <Card shadow="none">
@@ -79,14 +87,17 @@ const ProductCard = ({ product }: Props) => {
               <Heading size={"md"} fontWeight="thin">
                 {product.title}
               </Heading>
-              <ProductRating
-                rating={getDiscount(product.price, product.discountPercentage)}
-              />
-              <Text textDecoration={"line-through"}>{product.price}</Text>
+              <ProductRating rating={product.rating} />
             </HStack>
           </Link>
           <HStack justify="space-between">
-            <Heading size="md">{`$${product.price}`}</Heading>
+            <HStack>
+              <Heading size="md">
+                ${getDiscount(product.price, product.rating)}
+              </Heading>
+              <Text textDecoration={"line-through"}>${product.price}</Text>
+            </HStack>
+
             <CustomButton
               width={100}
               handleOnclick={() => handleCartButton(product)}

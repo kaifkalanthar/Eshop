@@ -10,16 +10,16 @@ import useSavedProducts from "../hooks/useSavedProducts";
 const Layout = () => {
   const setUser = userStore((s) => s.setUser);
   const getStoredData = localStorage.getItem("user");
-  const setCartItems = CheckoutStore((s) => s.setCheckoutItems);
+  const setCheckoutItems = CheckoutStore((s) => s.setCheckoutItems);
   const { data } = useSavedProducts();
-  if (data?.cart) setCartItems(data?.cart);
+
   useEffect(() => {
     if (getStoredData) {
       const user = JSON.parse(getStoredData);
       setUser(user);
     }
     if (data?.cart) {
-      setCartItems(data?.cart);
+      setCheckoutItems(data?.cart);
     }
   }, [data, getStoredData]);
 

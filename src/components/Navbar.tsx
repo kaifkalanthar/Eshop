@@ -36,10 +36,11 @@ const Navbar = () => {
       </HStack>
       <HStack spacing={5}>
         <Show above="sm">
-          <Link to="/cart">
+          <Link to={user.uid ? "/cart" : "/login"}>
             <Stack>
               <Box
                 bg="red"
+                display={cartItems.length === 0 ? "none" : "block"}
                 borderRadius={50}
                 width={6}
                 marginBottom={-8}

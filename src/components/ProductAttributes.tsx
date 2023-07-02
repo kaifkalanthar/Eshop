@@ -1,4 +1,4 @@
-import { Stack, HStack, Heading, Icon, Text } from "@chakra-ui/react";
+import { Stack, HStack, Heading, Icon, Text, Badge } from "@chakra-ui/react";
 import { AiOutlineLaptop } from "react-icons/ai";
 import ProductRating from "./ProductRating";
 import { Product } from "../hooks/useProducts";
@@ -13,17 +13,23 @@ export const getDiscount = (productPrice: number, discount: number) => {
 const ProductAttributes = ({ data }: Props) => {
   return (
     <>
-      <Heading>{data?.title}</Heading>
-      <Text>{data?.description}</Text>
-      <Stack spacing={3} py={10}>
-        <HStack>
-          <Heading>
-            ${getDiscount(data?.price!, data?.discountPercentage!)}
-          </Heading>
-          <Text textDecoration={"line-through"}>${data?.price}</Text>
-        </HStack>
+      <Heading marginBottom={5} fontWeight={"normal"}>
+        {data?.title}
+      </Heading>
+      <HStack>
+        <Heading>
+          ${getDiscount(data?.price!, data?.discountPercentage!)}
+        </Heading>
+        <Text color={"gray.400"} textDecoration={"line-through"}>
+          ${data?.price}
+        </Text>
+      </HStack>
 
-        <Text>{"Discount " + data?.discountPercentage + "%"}</Text>
+      <Stack spacing={3} py={10}>
+        <Text>{data?.description}</Text>
+        <Badge colorScheme="red" width={"90px"} textAlign="center" padding={2}>
+          {data?.discountPercentage + "% off"}
+        </Badge>
         <ProductRating rating={data?.rating!} />
 
         <Text>Category</Text>

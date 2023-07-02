@@ -14,7 +14,7 @@ const ProductDetailsPage = () => {
 
   return (
     <SimpleGrid columns={{ sm: 1, md: 2 }} spacing={5} paddingY={[5, 5, 10]}>
-      <GridItem marginBottom={5} marginX="auto">
+      <GridItem marginBottom={5}>
         <ImageStack data={data} />
       </GridItem>
 

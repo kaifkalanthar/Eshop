@@ -16,8 +16,8 @@ import { getDiscount } from "./ProductAttributes";
 const UserProfile = () => {
   const user = userStore((s) => s.user);
   const { data, isLoading } = useSavedProducts();
+  console.log(data);
   if (isLoading) return <Spinner />;
-  const orderedProducts = data?.orderedProducts;
 
   return (
     <Stack marginX={"auto"} spacing={5}>
@@ -36,8 +36,13 @@ const UserProfile = () => {
           Your Orders
         </Heading>
         <SimpleGrid columns={{ sm: 1, md: 1, lg: 2 }} spacing={10}>
-          {orderedProducts?.map((product, index) => (
-            <GridItem key={index} marginX={"auto"}>
+          {data?.orderedProducts?.map((product, index) => (
+            <GridItem
+              key={index}
+              marginX={"auto"}
+              borderRadius={10}
+              overflow={"hidden"}
+            >
               <HStack width={["280px", "400px"]}>
                 <Box boxSize={"100px"}>
                   <Image minHeight={"100px"} src={product.images[0]} />

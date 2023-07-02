@@ -6,9 +6,9 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import useSavedProducts from "../hooks/useSavedProducts";
+import CheckoutStore from "../store/CheckoutStore";
 import CartItemsCard from "./CartItemsCard";
 import CheckoutButton from "./CheckoutButton";
-import CheckoutStore from "../store/CheckoutStore";
 
 const CartItems = () => {
   const { data, isLoading } = useSavedProducts();
@@ -27,13 +27,17 @@ const CartItems = () => {
           </Stack>
         </GridItem>
 
-        <GridItem gap={5}>
-          {/* <Heading>
-            Total amount $
-            {data?.cart.reduce((total, item) => {
-              return total + item.price;
-            }, 0)}
-          </Heading> */}
+        <GridItem mx={"auto"} textAlign={"center"}>
+          <Heading fontWeight={"light"} mb={5}>
+            Total amount{" "}
+            <span style={{ fontWeight: "bold", color: "#ff69b4" }}>
+              $
+              {data?.cart.reduce((total, item) => {
+                return total + item.price;
+              }, 0)}
+            </span>
+          </Heading>
+
           <CheckoutButton label="Checkout" data={checkoutItems} />
         </GridItem>
       </SimpleGrid>
