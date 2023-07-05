@@ -10,6 +10,8 @@ const ProductCardContainer = ({ children }: Props) => {
         transform: "scale(1.03)",
         transition: "transform .15s ease-in",
       }}
+      width={["auto"]}
+      height={"auto"}
       borderRadius={10}
       overflow={"hidden"}
     >

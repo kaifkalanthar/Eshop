@@ -2,6 +2,7 @@ import {
   Box,
   Card,
   CardBody,
+  Flex,
   HStack,
   Heading,
   Image,
@@ -10,22 +11,21 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import ms from "ms";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Product } from "../hooks/useProducts";
+import useSavedProducts from "../hooks/useSavedProducts";
 import ApiClient from "../services/api-client";
+import CheckoutStore from "../store/CheckoutStore";
 import userStore from "../store/UserStore";
 import CustomButton from "./CustomButton";
 import { getDiscount } from "./ProductAttributes";
 import ProductRating from "./ProductRating";
-import CheckoutStore from "../store/CheckoutStore";
-import useSavedProducts from "../hooks/useSavedProducts";
 
 interface Props {
   product: Product;
 }
 
 const ProductCard = ({ product }: Props) => {
-  const navigate = useNavigate();
   const toast = useToast();
 
   const user = userStore((s) => s.user);
@@ -35,42 +35,40 @@ const ProductCard = ({ product }: Props) => {
 
   const handleCartButton = async (product: Product) => {
     if (!user.uid) {
-      navigate("/login");
-      toast({
+      return toast({
         title: "Login or Sign up",
         status: "info",
         duration: ms("5s"),
         isClosable: false,
         position: "top",
       });
-    } else {
-      setCheckoutItems([...checkoutItems, product]);
-      const data = await apiClient.getSavedProducts(user.uid);
-      let cartItems: Product[] = [];
-      if (data === undefined) {
-        cartItems = [product];
-        apiClient.updateCartItem(
-          user.uid,
-          [product],
-          getSavedProducts.data?.orderedProducts
-        );
-      } else {
-        cartItems = [...checkoutItems, product];
-        apiClient.updateCartItem(
-          user.uid,
-          cartItems,
-          getSavedProducts.data?.orderedProducts
-        );
-      }
-
-      toast({
-        title: "Added to cart",
-        status: "success",
-        duration: ms("5s"),
-        isClosable: false,
-        position: "top",
-      });
     }
+    setCheckoutItems([...checkoutItems, product]);
+    const data = await apiClient.getSavedProducts(user.uid);
+    let cartItems: Product[] = [];
+    if (data === undefined) {
+      cartItems = [product];
+      apiClient.updateCartItem(
+        user.uid,
+        [product],
+        getSavedProducts.data?.orderedProducts
+      );
+    } else {
+      cartItems = [...checkoutItems, product];
+      apiClient.updateCartItem(
+        user.uid,
+        cartItems,
+        getSavedProducts.data?.orderedProducts
+      );
+    }
+
+    toast({
+      title: "Added to cart",
+      status: "success",
+      duration: ms("5s"),
+      isClosable: false,
+      position: "top",
+    });
   };
   return (
     <Card shadow="none">
@@ -83,14 +81,16 @@ const ProductCard = ({ product }: Props) => {
       <CardBody>
         <Stack spacing={2}>
           <Link to={`/products/${product.id}`}>
-            <HStack justify="space-between">
+            <Flex justify="space-between" direction={["column", "row"]} gap={2}>
               <Heading size={"md"} fontWeight="thin">
                 {product.title}
               </Heading>
-              <ProductRating rating={product.rating} />
-            </HStack>
+              <Box>
+                <ProductRating rating={product.rating} />
+              </Box>
+            </Flex>
           </Link>
-          <HStack justify="space-between">
+          <Flex justify="space-between" direction={["column", "row"]} gap={5}>
             <HStack>
               <Heading size="md">
                 ${getDiscount(product.price, product.rating)}
@@ -102,9 +102,9 @@ const ProductCard = ({ product }: Props) => {
               width={100}
               handleOnclick={() => handleCartButton(product)}
             >
-              Cart
+              + Cart
             </CustomButton>
-          </HStack>
+          </Flex>
         </Stack>
       </CardBody>
     </Card>

@@ -5,7 +5,7 @@ interface Props {
 }
 
 const ProductRating = ({ rating }: Props) => {
-  const color = rating > 4.5 ? "green" : rating > 4.0 ? "yellow" : "";
+  const color = rating > 4.5 ? "green" : rating > 4.0 ? "yellow" : "orange";
   return (
     <Badge paddingX={2} width="40px" colorScheme={color}>
       {rating}

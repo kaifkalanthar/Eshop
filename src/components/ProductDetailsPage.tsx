@@ -5,11 +5,12 @@ import CheckoutButton from "./CheckoutButton";
 import CustomButton from "./CustomButton";
 import ImageStack from "./ImageStack";
 import ProductAttributes from "./ProductAttributes";
+import ProductDetailsPageSkeleton from "./ProductDetailsPageSkeleton";
 
 const ProductDetailsPage = () => {
   const { id } = useParams();
-  const { data } = useProduct(id!);
-
+  const { data, isLoading } = useProduct(id!);
+  if (isLoading) return <ProductDetailsPageSkeleton />;
   if (!data) return;
 
   return (

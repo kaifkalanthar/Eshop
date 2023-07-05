@@ -43,7 +43,7 @@ const ProductSection = () => {
           <CategorySelector />
         </SimpleGrid>
         {data.products.length < 1 && <Heading>No Data Found</Heading>}
-        <SimpleGrid columns={{ sm: 2, md: 4 }} spacing={8}>
+        <SimpleGrid columns={{ base: 2, md: 3, lg: 5 }} spacing={[2, 10, 10]}>
           {data?.products.map((product, index) => (
             <ProductCardContainer key={index}>
               <ProductCard product={product} />
@@ -51,7 +51,7 @@ const ProductSection = () => {
           ))}
         </SimpleGrid>
 
-        {productQuery.limit >= 10 && productQuery.limit < 100 && (
+        {data.products.length >= 10 && data.products.length < 100 && (
           <Box textAlign="center" marginY={5}>
             <CustomButton
               handleOnclick={() => {

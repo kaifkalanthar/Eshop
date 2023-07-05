@@ -25,11 +25,11 @@ const productStore = create<ProductQueryStore>((set) => ({
     })),
   setSearchQuery: (searchQuery) =>
     set(() => ({
-      productQuery: { limit: 0, category: "", searchQuery },
+      productQuery: { limit: 10, category: "", searchQuery },
     })),
   setCategory: (category) =>
     set(() => ({
-      productQuery: { limit: 0, searchQuery: "", category },
+      productQuery: { limit: 10, searchQuery: "", category },
     })),
 }));
 

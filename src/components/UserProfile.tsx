@@ -12,11 +12,12 @@ import {
 import useSavedProducts from "../hooks/useSavedProducts";
 import userStore from "../store/UserStore";
 import { getDiscount } from "./ProductAttributes";
+import { Navigate } from "react-router-dom";
 
 const UserProfile = () => {
   const user = userStore((s) => s.user);
+  if (!user.uid) return <Navigate to="/login" />;
   const { data, isLoading } = useSavedProducts();
-  console.log(data);
   if (isLoading) return <Spinner />;
 
   return (

@@ -12,7 +12,7 @@ const Layout = () => {
   const getStoredData = localStorage.getItem("user");
   const setCheckoutItems = CheckoutStore((s) => s.setCheckoutItems);
   const { data } = useSavedProducts();
-  console.log(import.meta.env.VITE_API_URL);
+
   useEffect(() => {
     if (getStoredData) {
       const user = JSON.parse(getStoredData);
