@@ -9,13 +9,17 @@ import useSavedProducts from "../hooks/useSavedProducts";
 import CheckoutStore from "../store/CheckoutStore";
 import CartItemsCard from "./CartItemsCard";
 import CheckoutButton from "./CheckoutButton";
+import userStore from "../store/UserStore";
+import { Navigate } from "react-router-dom";
+import NoItems from "./NoItems";
 
 const CartItems = () => {
-  const { data, isLoading } = useSavedProducts();
+  const user = userStore((s) => s.user);
+  if (!user.uid) <Navigate to="/login" />;
+  const { isLoading } = useSavedProducts();
   const checkoutItems = CheckoutStore((s) => s.checkoutItems);
   if (isLoading) return <Spinner />;
-
-  if (!data?.cart) return <Heading>No items in cart</Heading>;
+  if (checkoutItems.length === 0) return <NoItems />;
   return (
     <>
       <SimpleGrid columns={{ sm: 1, md: 2 }} spacing={10}>

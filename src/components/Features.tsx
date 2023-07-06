@@ -30,7 +30,7 @@ const Features = ({ feature }: Props) => {
               paddingTop={["auto", "auto", "100px"]}
               marginY="auto"
             >
-              <Heading>{feature.title}</Heading>
+              <Heading mb={5}>{feature.title}</Heading>
               <MotionTextContainer>{feature.description}</MotionTextContainer>
             </Box>
           </Flex>

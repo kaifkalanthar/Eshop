@@ -6,6 +6,10 @@ const config: ThemeConfig = {
 
 const theme = extendTheme({
   config,
+  fonts: {
+    body: "poppins, sans-serif",
+    heading: "poppins, sans-serif",
+  },
   colors: {
     gray: {
       50: "#f9f9f9",

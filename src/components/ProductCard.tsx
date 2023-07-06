@@ -82,7 +82,7 @@ const ProductCard = ({ product }: Props) => {
         <Stack spacing={2}>
           <Link to={`/products/${product.id}`}>
             <Flex justify="space-between" direction={["column", "row"]} gap={2}>
-              <Heading size={"md"} fontWeight="thin">
+              <Heading size={"md"} fontWeight="hairline">
                 {product.title}
               </Heading>
               <Box>

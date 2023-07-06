@@ -16,7 +16,7 @@ const useTopProducts = () => {
 
   const topProducts = data?.products
     .sort((a, b) => b.rating - a.rating)
-    .slice(0, 8);
+    .slice(0, 10);
   return { topProducts, error, isLoading };
 };
 
