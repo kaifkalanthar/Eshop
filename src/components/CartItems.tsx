@@ -32,7 +32,7 @@ const CartItems = () => {
             Total amount{" "}
             <span style={{ fontWeight: "bold", color: "#ff69b4" }}>
               $
-              {data?.cart.reduce((total, item) => {
+              {checkoutItems?.reduce((total, item) => {
                 return total + item.price;
               }, 0)}
             </span>

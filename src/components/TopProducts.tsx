@@ -16,7 +16,7 @@ const TopProducts = () => {
       </Heading>
       <SimpleGrid
         columns={{ base: 2, md: 3, lg: 5 }}
-        spacing={10}
+        spacing={[2, 10, 10]}
         marginBottom={5}
       >
         {topProducts?.map((product) => (
