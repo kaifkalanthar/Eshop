@@ -15,6 +15,7 @@ import userStore from "../store/UserStore";
 import { IoIosLogOut } from "react-icons/io";
 import Authentication from "../services/auth";
 import CheckoutStore from "../store/CheckoutStore";
+import { AiOutlineShop } from "react-icons/ai";
 
 const MenuItems = () => {
   const user = userStore((s) => s.user);
@@ -23,6 +24,12 @@ const MenuItems = () => {
   return (
     <Stack spacing={5} align="end">
       <Flex direction="column" gap={5}>
+        <Link to="/products">
+          <MenuItemContainer>
+            <Icon as={AiOutlineShop} boxSize="40px" />
+            <Heading size="lg">Products</Heading>
+          </MenuItemContainer>
+        </Link>
         <Link to={user.uid ? "/cart" : "/login"}>
           <MenuItemContainer>
             <Icon as={TbShoppingBag} boxSize="40px" />

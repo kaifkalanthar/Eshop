@@ -8,16 +8,10 @@ import {
   Image,
   Stack,
   Text,
-  useToast,
 } from "@chakra-ui/react";
-import ms from "ms";
 import { Link } from "react-router-dom";
 import { Product } from "../hooks/useProducts";
-import useSavedProducts from "../hooks/useSavedProducts";
-import ApiClient from "../services/api-client";
-import CheckoutStore from "../store/CheckoutStore";
-import userStore from "../store/UserStore";
-import CustomButton from "./CustomButton";
+import CartButton from "./CartButton";
 import { getDiscount } from "./ProductAttributes";
 import ProductRating from "./ProductRating";
 
@@ -26,50 +20,6 @@ interface Props {
 }
 
 const ProductCard = ({ product }: Props) => {
-  const toast = useToast();
-
-  const user = userStore((s) => s.user);
-  const { checkoutItems, setCheckoutItems } = CheckoutStore();
-  const getSavedProducts = useSavedProducts();
-  const apiClient = new ApiClient();
-
-  const handleCartButton = async (product: Product) => {
-    if (!user.uid) {
-      return toast({
-        title: "Login or Sign up",
-        status: "info",
-        duration: ms("5s"),
-        isClosable: false,
-        position: "top",
-      });
-    }
-    setCheckoutItems([...checkoutItems, product]);
-    const data = await apiClient.getSavedProducts(user.uid);
-    let cartItems: Product[] = [];
-    if (data === undefined) {
-      cartItems = [product];
-      apiClient.updateCartItem(
-        user.uid,
-        [product],
-        getSavedProducts.data?.orderedProducts
-      );
-    } else {
-      cartItems = [...checkoutItems, product];
-      apiClient.updateCartItem(
-        user.uid,
-        cartItems,
-        getSavedProducts.data?.orderedProducts
-      );
-    }
-
-    toast({
-      title: "Added to cart",
-      status: "success",
-      duration: ms("5s"),
-      isClosable: false,
-      position: "top",
-    });
-  };
   return (
     <Card shadow="none">
       <Link to={`/products/${product.id}`}>
@@ -98,12 +48,7 @@ const ProductCard = ({ product }: Props) => {
               <Text textDecoration={"line-through"}>${product.price}</Text>
             </HStack>
 
-            <CustomButton
-              width={100}
-              handleOnclick={() => handleCartButton(product)}
-            >
-              + Cart
-            </CustomButton>
+            <CartButton product={product} />
           </Flex>
         </Stack>
       </CardBody>

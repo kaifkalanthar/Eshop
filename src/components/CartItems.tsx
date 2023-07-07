@@ -12,6 +12,7 @@ import CheckoutButton from "./CheckoutButton";
 import userStore from "../store/UserStore";
 import { Navigate } from "react-router-dom";
 import NoItems from "./NoItems";
+import { getDiscount } from "./ProductAttributes";
 
 const CartItems = () => {
   const user = userStore((s) => s.user);
@@ -37,7 +38,11 @@ const CartItems = () => {
             <span style={{ fontWeight: "bold", color: "#ff69b4" }}>
               $
               {checkoutItems?.reduce((total, item) => {
-                return total + item.price;
+                const discount = getDiscount(
+                  item.price,
+                  item.discountPercentage
+                );
+                return total + discount;
               }, 0)}
             </span>
           </Heading>

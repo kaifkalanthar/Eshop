@@ -36,6 +36,9 @@ const Navbar = () => {
       </HStack>
       <HStack spacing={5}>
         <Show above="sm">
+          <Link to="/products">
+            <Button>Products</Button>
+          </Link>
           <Link to={user.uid ? "/cart" : "/login"}>
             <Stack>
               <Box

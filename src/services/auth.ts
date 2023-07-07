@@ -13,6 +13,7 @@ import ApiClient from "./api-client";
 
 class Authentication {
   toast = useToast();
+
   registerUser = async (username: string, email: string, password: string) => {
     const apiClient = new ApiClient();
     await createUserWithEmailAndPassword(auth, email, password)

@@ -10,8 +10,8 @@ export interface SavedProducts {
 }
 
 const useSavedProducts = () => {
-  const user = userStore((s) => s.user);
   const apiClient = new ApiClient<SavedProducts>();
+  const user = userStore((s) => s.user);
   const { data, error, isLoading } = useQuery<SavedProducts, Error>({
     queryKey: ["savedProducts"],
     queryFn: () => apiClient.getSavedProducts(user.uid),
