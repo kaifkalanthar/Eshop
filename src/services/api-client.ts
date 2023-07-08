@@ -20,7 +20,6 @@ class ApiClient<T> {
     return axiosInstance
       .get<FetchResponse<T>>(this.endpoint, config)
       .then((res) => res.data);
-    
   };
 
   get = (id: number | string) => {
@@ -57,7 +56,6 @@ class ApiClient<T> {
   };
 
   getSavedProducts = async (userId: string) => {
-    if (!userId) return [];
     const res = await firebaseAxiosInstance.get<SavedProducts>(
       `/${userId}.json`
     );
