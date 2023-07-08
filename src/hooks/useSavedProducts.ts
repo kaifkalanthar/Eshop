@@ -16,7 +16,6 @@ const useSavedProducts = () => {
   const { data, error, isLoading } = useQuery<SavedProducts | any, Error>({
     queryKey: ["savedProducts"],
     queryFn: () => apiClient.getSavedProducts(user.uid),
-    staleTime: ms("24hr"),
   });
 
   return { data, error, isLoading };
