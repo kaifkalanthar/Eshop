@@ -5,9 +5,9 @@ import { Product } from "./useProducts";
 
 
 export interface SavedProducts {
-  userId?: string;
-  cart?: Product[];
-  orderedProducts?: Product[];
+  userId: string;
+  cart: Product[];
+  orderedProducts: Product[];
 }
 
 const useSavedProducts = () => {
