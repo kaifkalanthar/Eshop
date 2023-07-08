@@ -58,6 +58,7 @@ class ApiClient<T> {
   };
 
   getSavedProducts = async (userId: string) => {
+    if (!userId) return [];
     const res = await firebaseAxiosInstance.get<SavedProducts>(
       `/${userId}.json`
     );

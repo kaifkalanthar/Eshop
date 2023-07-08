@@ -1,7 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import ApiClient, { FetchResponse } from "../services/api-client";
-import ms from "ms";
 import productStore from "../store/ProductStore";
+import ms from "ms";
 
 export interface Product {
   id: number;
@@ -26,18 +26,41 @@ const useProducts = () => {
       ? "products/search"
       : "products"
   );
-  return useQuery<FetchResponse<Product>, Error>({
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isError,
+    error,
+  } = useInfiniteQuery<FetchResponse<Product>, Error>({
     queryKey: ["products", productQuery],
-    queryFn: () =>
+    queryFn: ({ pageParam = 0 }) =>
       apiClient.getAll({
         params: {
-          limit: productQuery.limit,
+          skip: pageParam,
+          limit: 20,
           q: productQuery.searchQuery,
         },
       }),
     staleTime: ms("24h"),
-    keepPreviousData: true,
+    getNextPageParam: (lastPage) => {
+      const currentPageCount = lastPage.skip + 20;
+      if (currentPageCount < lastPage.total + 1) {
+        return currentPageCount;
+      }
+      return undefined;
+    },
   });
+
+  return {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isError,
+    error,
+  };
 };
 
 export default useProducts;

@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import ApiClient, { FetchResponse } from "../services/api-client";
 import { Product } from "./useProducts";
+import ms from "ms";
 
 const useTopProducts = () => {
   const apiClient = new ApiClient<Product>("/product");
@@ -12,6 +13,7 @@ const useTopProducts = () => {
           limit: 0,
         },
       }),
+    staleTime: ms("24hr"),
   });
 
   const topProducts = data?.products
