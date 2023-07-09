@@ -1,56 +1,64 @@
-import { Box, Flex, Heading, Image, Stack, Text } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Box, Heading } from "@chakra-ui/react";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 import categories from "../data/categories";
-import productStore from "../store/ProductStore";
+import CategoryCard from "./CategoryCard";
 
 const CategorySection = () => {
-  const setCategory = productStore((s) => s.setCategory);
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 3000 },
+      items: 8,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 4,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 667 },
+      items: 3,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
+  const carouselSettings = {
+    additionalTransfrom: 0,
+    arrows: true,
+    autoPlay: true,
+    autoPlaySpeed: 2000,
+    centerMode: false,
+    className: "",
+    customButtonGroup: null,
+    dotListClass: "",
+    draggable: true,
+    focusOnSelect: false,
+    infinite: true,
+    itemClass: "",
+    keyBoardControl: true,
+    minimumTouchDrag: 100,
+    partialVisible: false,
+    renderButtonGroupOutside: false,
+    renderDotsOutside: false,
+    showDots: false,
+    sliderClass: "",
+    slidesToSlide: 1,
+    swipeable: true,
+  };
+
   return (
-    <Box paddingY={5}>
+    <Box my={5}>
       <Heading fontWeight="medium" textAlign="center" padding={10}>
         Category
       </Heading>
-      <Flex
-        overflowX={"scroll"}
-        overflowY={"hidden"}
-        css={{ "&::-webkit-scrollbar": { display: "none" } }}
-      >
-        <Box display={"flex"} gap={5}>
+      <Box>
+        <Carousel responsive={responsive} {...carouselSettings}>
           {categories.map((category, index) => (
-            <Box
-              key={index}
-              width={"250px"}
-              _hover={{
-                transform: "scale(1.03)",
-                transition: "transform .15s ease-in",
-              }}
-            >
-              <Stack position="relative" overflow="hidden" borderRadius={10}>
-                <Link onClick={() => setCategory(category.name)} to="products">
-                  <Image
-                    overflow={"hidden"}
-                    width="100%"
-                    src={category.img}
-                    alt={category.name}
-                  />
-                  <Text
-                    bg="pink.200"
-                    textAlign="end"
-                    color="#111"
-                    fontSize="xl"
-                    marginTop={-5}
-                    padding={2}
-                    position="relative"
-                    zIndex={1}
-                  >
-                    {category.name}
-                  </Text>
-                </Link>
-              </Stack>
-            </Box>
+            <CategoryCard key={index} category={category} />
           ))}
-        </Box>
-      </Flex>
+        </Carousel>
+      </Box>
     </Box>
   );
 };
