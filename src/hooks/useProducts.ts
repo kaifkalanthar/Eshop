@@ -15,6 +15,7 @@ export interface Product {
   category: string;
   thumbnail: string;
   images: string[];
+  quantity: number;
 }
 
 const useProducts = () => {
@@ -32,6 +33,7 @@ const useProducts = () => {
     hasNextPage,
     isFetchingNextPage,
     isError,
+    isLoading,
     error,
   } = useInfiniteQuery<FetchResponse<Product>, Error>({
     queryKey: ["products", productQuery],
@@ -59,6 +61,7 @@ const useProducts = () => {
     hasNextPage,
     isFetchingNextPage,
     isError,
+    isLoading,
     error,
   };
 };

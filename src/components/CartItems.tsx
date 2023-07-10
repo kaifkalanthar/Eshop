@@ -1,25 +1,18 @@
-import {
-  GridItem,
-  Heading,
-  SimpleGrid,
-  Spinner,
-  Stack,
-} from "@chakra-ui/react";
-import useSavedProducts from "../hooks/useSavedProducts";
+import { GridItem, Heading, SimpleGrid, Stack } from "@chakra-ui/react";
+import { Navigate } from "react-router-dom";
 import CheckoutStore from "../store/CheckoutStore";
+import userStore from "../store/UserStore";
 import CartItemsCard from "./CartItemsCard";
 import CheckoutButton from "./CheckoutButton";
-import userStore from "../store/UserStore";
-import { Navigate } from "react-router-dom";
 import NoItems from "./NoItems";
 import { getDiscount } from "./ProductAttributes";
 
 const CartItems = () => {
   const user = userStore((s) => s.user);
   if (!user.uid) <Navigate to="/login" />;
-  const { isLoading } = useSavedProducts();
+
   const checkoutItems = CheckoutStore((s) => s.checkoutItems);
-  if (isLoading) return <Spinner />;
+
   if (checkoutItems.length === 0) return <NoItems />;
   return (
     <>

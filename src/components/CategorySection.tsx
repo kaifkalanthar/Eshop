@@ -11,11 +11,11 @@ const CategorySection = () => {
       items: 8,
     },
     desktop: {
-      breakpoint: { max: 3000, min: 1024 },
+      breakpoint: { max: 3000, min: 1107 },
       items: 4,
     },
     tablet: {
-      breakpoint: { max: 1024, min: 667 },
+      breakpoint: { max: 1107, min: 667 },
       items: 3,
     },
     mobile: {

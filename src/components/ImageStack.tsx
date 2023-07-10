@@ -15,6 +15,8 @@ const ImageStack = ({ data }: Props) => {
         marginX="auto"
         borderRadius={5}
         boxSize="80%"
+        width={["280px", "400px"]}
+        height={["300px", "400px"]}
       />
       <HStack py={5} spacing={5} justify={"center"}>
         {data?.images.map((image, index) => (
