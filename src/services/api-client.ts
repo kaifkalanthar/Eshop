@@ -17,13 +17,13 @@ class ApiClient<T> {
   }
 
   getAll = async (config?: AxiosRequestConfig) => {
-    return axiosInstance
+    return await axiosInstance
       .get<FetchResponse<T>>(this.endpoint, config)
       .then((res) => res.data);
   };
 
-  get = (id: number | string) => {
-    return axiosInstance
+  get = async (id: number | string) => {
+    return await axiosInstance
       .get<T>(this.endpoint + `/${id}`)
       .then((res) => res.data);
   };

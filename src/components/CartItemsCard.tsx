@@ -12,44 +12,40 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { AiOutlineDelete } from "react-icons/ai";
+import { IoMdAdd, IoMdRemove } from "react-icons/io";
 import { Product } from "../hooks/useProducts";
 import useSavedProducts from "../hooks/useSavedProducts";
 import ApiClient from "../services/api-client";
 import CheckoutStore from "../store/CheckoutStore";
 import userStore from "../store/UserStore";
 import { getDiscount } from "./ProductAttributes";
-import { useEffect, useState } from "react";
-import { IoMdAdd, IoMdRemove } from "react-icons/io";
+import { useEffect } from "react";
+
 
 interface Props {
   cart: Product;
 }
 const CartItemsCard = ({ cart }: Props) => {
-  const [counter, setCounter] = useState(!cart.quantity ? 1 : cart.quantity);
   const user = userStore((s) => s.user);
-  const { checkoutItems, setCheckoutItems } = CheckoutStore();
-  const carts: Product[] = checkoutItems;
+  const {
+    checkoutItems,
+    setCheckoutItems,
+    increaseQuantity,
+    decreaseQuantity,
+  } = CheckoutStore();
   const { data, error, isLoading } = useSavedProducts();
+  if (!cart.quantity) cart.quantity = 1;
   if (isLoading) return <Spinner />;
   if (error) return <Heading>Unexpected error occurred</Heading>;
-
   const apiClient = new ApiClient<Product>();
-  const updateCounter = async () => {
-    for (let i = 0; i < carts.length; i++) {
-      if (carts[i].id === cart.id) {
-        carts[i].quantity = counter;
-        await apiClient.updateCartItem(user.uid, carts, data?.orderedProducts);
-        setCheckoutItems(carts);
-      }
-    }
-  };
+
   useEffect(() => {
-    updateCounter();
-  }, [counter]);
+    apiClient.updateCartItem(user.uid, checkoutItems, data?.orderedProducts);
+  }, [checkoutItems]);
 
   const handleDelete = async (cart: Product) => {
     setCheckoutItems(checkoutItems.filter((item) => item.id !== cart.id));
-    await apiClient.updateCartItem(
+    apiClient.updateCartItem(
       user.uid,
       checkoutItems.filter((item) => item.id !== cart.id),
       data?.orderedProducts
@@ -61,11 +57,12 @@ const CartItemsCard = ({ cart }: Props) => {
       marginX={"auto"}
       borderRadius={10}
       overflow={"hidden"}
-      minWidth={["260px", "420px"]}
+      maxW={"420px"}
+      minW={["260px", "420px"]}
     >
       <Box>
         <Image
-          width="160px"
+          width={["140px", "160px"]}
           height="90px"
           objectFit={"fill"}
           src={cart.images[0]}
@@ -82,28 +79,34 @@ const CartItemsCard = ({ cart }: Props) => {
               ${getDiscount(cart?.price, cart.discountPercentage)}
             </Heading>
             <Text textDecoration={"line-through"}>${cart.price}</Text>
+          </HStack>
+          <HStack>
             <ButtonGroup isAttached variant="outline" size="sm">
               <IconButton
                 aria-label="add"
                 icon={<IoMdAdd />}
-                onClick={() => setCounter(counter < 10 ? counter + 1 : 10)}
+                onClick={() => {
+                  increaseQuantity(cart);
+                }}
               />
               <Button px={2}>{cart.quantity}</Button>
               <IconButton
                 aria-label="sub"
                 icon={<IoMdRemove />}
-                onClick={() => setCounter(counter > 1 ? counter - 1 : 1)}
+                onClick={() => {
+                  decreaseQuantity(cart);
+                }}
               />
             </ButtonGroup>
+            <Button
+              size="sm"
+              width="10%"
+              colorScheme="red"
+              onClick={() => handleDelete(cart)}
+            >
+              <Icon as={AiOutlineDelete} />
+            </Button>
           </HStack>
-          <Button
-            size="sm"
-            width="10%"
-            colorScheme="red"
-            onClick={() => handleDelete(cart)}
-          >
-            <Icon as={AiOutlineDelete} />
-          </Button>
         </HStack>
       </Stack>
     </HStack>

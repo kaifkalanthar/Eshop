@@ -7,6 +7,8 @@ import ApiClient from "../services/api-client";
 import CheckoutStore from "../store/CheckoutStore";
 import userStore from "../store/UserStore";
 import CustomButton from "./CustomButton";
+import ErrorPage from "./ErrorPage";
+import { debounce } from "lodash";
 
 interface Props {
   product: Product;
@@ -16,11 +18,13 @@ const CartButton = ({ product }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const user = userStore((s) => s.user);
-  const { checkoutItems, setCheckoutItems } = CheckoutStore();
-  const getSavedProducts = useSavedProducts();
+  const { checkoutItems, increaseQuantity, setCheckoutItems } = CheckoutStore();
+  const isCartItem = checkoutItems.find((items) => items.id === product.id);
+  const { data, error } = useSavedProducts();
+  if (error) return <ErrorPage />;
   const apiClient = new ApiClient();
 
-  const handleCartButton = async (product: Product) => {
+  const handleCartButton = debounce(async (product: Product) => {
     if (!user.uid) {
       return toast({
         title: "Login or Sign up",
@@ -31,40 +35,54 @@ const CartButton = ({ product }: Props) => {
       });
     }
 
-    setCheckoutItems([...checkoutItems, product]);
-    setIsLoading(true);
-    const data = await apiClient.getSavedProducts(user.uid);
-    let cartItems: Product[] = [];
-    if (data === undefined) {
-      cartItems = [product];
-      await apiClient.updateCartItem(
-        user.uid,
-        [product],
-        getSavedProducts.data?.orderedProducts
-      );
+    if (isCartItem) {
+      increaseQuantity(product);
+      apiClient.updateCartItem(user.uid, checkoutItems, data?.orderedProducts);
+      return toast({
+        title: "Added to cart",
+        status: "success",
+        duration: ms("5s"),
+        isClosable: false,
+        position: "top",
+      });
     } else {
-      cartItems = [...checkoutItems, product];
-      await apiClient.updateCartItem(
-        user.uid,
-        cartItems,
-        getSavedProducts.data?.orderedProducts
-      );
+      setCheckoutItems([product, ...checkoutItems]);
+      setIsLoading(true);
+      const data = await apiClient.getSavedProducts(user.uid);
+      let cartItems: Product[] = [];
+      if (data.cart === undefined) {
+        cartItems = [product];
+        await apiClient.updateCartItem(
+          user.uid,
+          [product],
+          data.orderedProducts
+        );
+      } else {
+        cartItems = [product, ...checkoutItems];
+        await apiClient.updateCartItem(
+          user.uid,
+          cartItems,
+          data?.orderedProducts
+        );
+      }
+      setIsLoading(false);
+      toast({
+        title: "Added to cart",
+        status: "success",
+        duration: ms("5s"),
+        isClosable: false,
+        position: "top",
+      });
     }
-    setIsLoading(false);
-    toast({
-      title: "Added to cart",
-      status: "success",
-      duration: ms("5s"),
-      isClosable: false,
-      position: "top",
-    });
-  };
+  }, 300);
+
   return (
     <CustomButton
       width={"100%"}
+      valid={isLoading}
       handleOnclick={() => handleCartButton(product)}
     >
-      {isLoading ? "Adding" : "+ Cart"}
+      {isLoading ? "Adding" : `+Cart`}
     </CustomButton>
   );
 };

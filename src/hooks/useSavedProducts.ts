@@ -16,7 +16,7 @@ const useSavedProducts = () => {
 
   const { data, error, isLoading } = useQuery<SavedProducts, Error>({
     queryKey: ["savedProducts"],
-    queryFn: () => apiClient.getSavedProducts(user.uid),
+    queryFn: async () => await apiClient.getSavedProducts(user.uid),
   });
   return { data, error, isLoading };
 };

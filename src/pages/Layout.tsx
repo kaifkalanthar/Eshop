@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Spinner } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Footer from "../components/Footer";
@@ -11,7 +11,7 @@ const Layout = () => {
   const setUser = userStore((s) => s.setUser);
   const getStoredData = localStorage.getItem("user");
   const setCheckoutItems = CheckoutStore((s) => s.setCheckoutItems);
-  const { data } = useSavedProducts();
+  const { data, isLoading } = useSavedProducts();
 
   useEffect(() => {
     if (getStoredData) {
@@ -21,8 +21,8 @@ const Layout = () => {
     if (data?.cart) {
       setCheckoutItems(data?.cart);
     }
-  }, [data, getStoredData]);
-
+  }, [data, getStoredData, setCheckoutItems, setUser]);
+  if (isLoading) return <Spinner />;
   return (
     <>
       <Navbar />
