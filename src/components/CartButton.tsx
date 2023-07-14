@@ -1,4 +1,4 @@
-import { useToast } from "@chakra-ui/react";
+import { Icon, useToast } from "@chakra-ui/react";
 import ms from "ms";
 import { useState } from "react";
 import { Product } from "../hooks/useProducts";
@@ -9,6 +9,7 @@ import userStore from "../store/UserStore";
 import CustomButton from "./CustomButton";
 import ErrorPage from "./ErrorPage";
 import { debounce } from "lodash";
+import { BsCartPlus } from "react-icons/bs";
 
 interface Props {
   product: Product;
@@ -78,11 +79,11 @@ const CartButton = ({ product }: Props) => {
 
   return (
     <CustomButton
-      width={"100%"}
+      width={"50px"}
       valid={isLoading}
       handleOnclick={() => handleCartButton(product)}
     >
-      {isLoading ? "Adding" : `+Cart`}
+      {isLoading ? "..." : <Icon as={BsCartPlus} boxSize={5} />}
     </CustomButton>
   );
 };

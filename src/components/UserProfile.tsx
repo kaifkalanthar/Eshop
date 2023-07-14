@@ -9,12 +9,13 @@ import {
   Spinner,
   Stack,
 } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import useSavedProducts from "../hooks/useSavedProducts";
 import userStore from "../store/UserStore";
+import CustomButton from "./CustomButton";
 import NoOrders from "./NoOrders";
 import { getDiscount } from "./ProductAttributes";
-import { useEffect } from "react";
 
 const UserProfile = () => {
   const user = userStore((s) => s.user);
@@ -34,6 +35,16 @@ const UserProfile = () => {
       <Box textAlign={"center"}>
         <Avatar name={user.displayName!} size={"2xl"} />
         <Heading fontSize={"3xl"}>{user.displayName}</Heading>
+      </Box>
+      <Box>
+        <CustomButton
+          handleOnclick={() => {
+            localStorage.removeItem("user");
+            window.location.href = "/";
+          }}
+        >
+          Logout
+        </CustomButton>
       </Box>
       <Box width={["100%", "100%", "70%"]} marginX={"auto"} padding={5}>
         <Heading

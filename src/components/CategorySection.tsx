@@ -42,6 +42,7 @@ const CategorySection = () => {
     renderButtonGroupOutside: false,
     renderDotsOutside: false,
     showDots: false,
+
     sliderClass: "",
     slidesToSlide: 1,
     swipeable: true,
@@ -52,7 +53,7 @@ const CategorySection = () => {
       <Heading fontWeight="medium" textAlign="center" padding={10}>
         Category
       </Heading>
-      <Box>
+      <Box zIndex={599}>
         <Carousel responsive={responsive} {...carouselSettings}>
           {categories.map((category, index) => (
             <CategoryCard key={index} category={category} />

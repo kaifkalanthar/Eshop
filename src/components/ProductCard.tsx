@@ -2,12 +2,12 @@ import {
   Box,
   Card,
   CardBody,
+  Divider,
   Flex,
   HStack,
   Heading,
   Image,
   Stack,
-  Text,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { Product } from "../hooks/useProducts";
@@ -21,10 +21,11 @@ interface Props {
 
 const ProductCard = ({ product }: Props) => {
   return (
-    <Card shadow="none">
+    <Card shadow="none" padding={2}>
       <Link to={`/products/${product.id}`}>
-        <Box maxHeight="350px" overflow="hidden">
+        <Box maxHeight="350px">
           <Image
+            borderRadius={10}
             src={product.images[0]}
             width="100%"
             height={["150px", "200px"]}
@@ -32,11 +33,11 @@ const ProductCard = ({ product }: Props) => {
         </Box>
       </Link>
 
-      <CardBody>
+      <CardBody paddingX={0}>
         <Stack spacing={2}>
           <Link to={`/products/${product.id}`}>
             <Flex justify="space-between" direction={["column", "row"]} gap={2}>
-              <Heading size={"md"} fontWeight="hairline">
+              <Heading size={"md"} fontWeight={"thin"}>
                 {product.title}
               </Heading>
               <Box>
@@ -44,14 +45,13 @@ const ProductCard = ({ product }: Props) => {
               </Box>
             </Flex>
           </Link>
-          <Flex justify="space-between" direction={["column", "row"]} gap={5}>
+          <Divider />
+          <Flex justify="space-between" gap={5}>
             <HStack>
               <Heading size="md">
                 ${getDiscount(product.price, product.rating)}
               </Heading>
-              <Text textDecoration={"line-through"}>${product.price}</Text>
             </HStack>
-
             <CartButton product={product} />
           </Flex>
         </Stack>
