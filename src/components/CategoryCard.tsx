@@ -1,4 +1,4 @@
-import { Box, Image, Stack, Text } from "@chakra-ui/react";
+import { Card, Image, Stack, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import productStore from "../store/ProductStore";
 
@@ -10,10 +10,12 @@ interface Category {
 interface Props {
   category: Category;
 }
+
 const CategoryCard = ({ category }: Props) => {
   const setCategory = productStore((s) => s.setCategory);
+
   return (
-    <Box
+    <Card
       width={["250px", "200px", "300px"]}
       mx="auto"
       _hover={{
@@ -21,16 +23,16 @@ const CategoryCard = ({ category }: Props) => {
         transition: "transform .15s ease-in",
       }}
     >
-      <Stack overflow="hidden" borderRadius={10}>
+      <Stack overflow="hidden" borderRadius={10} role="link">
         <Link onClick={() => setCategory(category.name)} to="products">
           <Image
-            overflow={"hidden"}
+            overflow="hidden"
             width="100%"
             src={category.img}
             alt={category.name}
           />
           <Text
-            flexWrap={"nowrap"}
+            flexWrap="nowrap"
             bg="pink.200"
             textAlign="end"
             color="#111"
@@ -44,7 +46,7 @@ const CategoryCard = ({ category }: Props) => {
           </Text>
         </Link>
       </Stack>
-    </Box>
+    </Card>
   );
 };
 

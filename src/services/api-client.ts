@@ -56,10 +56,10 @@ class ApiClient<T> {
   };
 
   getSavedProducts = async (userId: string) => {
-    const res = await firebaseAxiosInstance.get<SavedProducts>(
-      `/${userId}.json`
-    );
-    return res.data;
+    return await firebaseAxiosInstance
+      .get<SavedProducts>(`/${userId}.json`)
+      .then((res) => res.data);
+    
   };
 
   updateCartItem = async (

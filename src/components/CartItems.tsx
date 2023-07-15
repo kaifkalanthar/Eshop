@@ -31,6 +31,7 @@ const CartItems = () => {
   useEffect(() => {
     if (data?.cart) setCheckoutItems(data?.cart);
   }, [data]);
+
   if (isLoading) return <Spinner />;
 
   if (!data?.cart && checkoutItems.length === 0) return <NoItems />;
@@ -84,7 +85,6 @@ const CartItems = () => {
               }, 0)}
             </span>
           </Heading>
-
           <CheckoutButton label="Checkout" data={checkoutItems} />
         </GridItem>
       </SimpleGrid>

@@ -19,7 +19,7 @@ const Layout = () => {
       const user = JSON.parse(getStoredData);
       setUser(user);
     }
-    if (data?.cart) {
+    if (data?.userId && data?.cart) {
       setCheckoutItems(data?.cart);
     }
   }, [data, getStoredData, setCheckoutItems, setUser]);

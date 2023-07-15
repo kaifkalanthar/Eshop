@@ -39,7 +39,7 @@ const ProductGrid = () => {
       loader={<Spinner />}
       style={{ overflow: "hidden" }}
     >
-      <SimpleGrid columns={{ base: 2, md: 3, lg: 5 }} spacing={[2, 10, 10]}>
+      <SimpleGrid columns={{ base: 2, md: 3, lg: 4 }} spacing={[2, 10, 10]}>
         {data?.pages.map((page, index) => (
           <React.Fragment key={index}>
             {page.products.map((product, index) => (

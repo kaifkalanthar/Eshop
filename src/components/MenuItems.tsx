@@ -1,4 +1,4 @@
-import { Badge, Box, HStack, Icon, Show } from "@chakra-ui/react";
+import { Badge, Box, HStack, Icon, Show, useColorMode } from "@chakra-ui/react";
 import { AiOutlineBank, AiOutlineUser } from "react-icons/ai";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { Link } from "react-router-dom";
@@ -9,6 +9,7 @@ import ColorModeChange from "./ColorModeChange";
 const MenuItems = () => {
   const user = userStore((s) => s.user);
   const checkoutItems = CheckoutStore((s) => s.checkoutItems);
+  const { colorMode } = useColorMode();
   return (
     <HStack spacing={["60px", 10]} align="center" justify={"space-between"}>
       <Box my={"auto"} boxSize={"35px"}>
@@ -22,9 +23,9 @@ const MenuItems = () => {
           <Badge
             position="relative"
             transform="translate(100%, -200%)"
-            bg="red"
-            color="white"
             borderRadius="full"
+            bg={colorMode === "light" ? "black" : "gray.100"}
+            color={colorMode === "light" ? "white" : "black"}
             px={2}
             py={1}
             fontSize="xs"
