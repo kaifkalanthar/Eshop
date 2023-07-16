@@ -132,6 +132,10 @@ npm run build
 
 ## Demo
 https://eshop-ochre.vercel.app/
+#### Demo Account
+Email : user@gmail.com
+
+Password : user#asyu
 ## Screenshots
 Home Page
 ![Trendify_Home_Page](https://github.com/kaifkalanthar/Eshop/assets/77534625/fab3b25c-eb74-4a38-ad8f-b6795b8a0949)
