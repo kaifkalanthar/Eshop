@@ -1,14 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
-import LoginForm from "./components/LoginForm";
-import ProductDetailsPage from "./components/ProductDetailsPage";
-import ProductSection from "./components/ProductSection";
-import RegisterForm from "./components/RegisterForm";
-import UserProfile from "./components/UserProfile";
-import HomePage from "./pages/HomePage";
-import Layout from "./pages/Layout";
-import CartItems from "./components/CartItems";
+import Layout from "./Layout";
+import ErrorPage from "./pages/ErrorPage";
 import PrivateRoutes from "./components/PrivateRoutes";
-import ErrorPage from "./components/ErrorPage";
+import CartPage from "./pages/CartPage";
+import HomePage from "./pages/HomePage";
+import ProductDetailsPage from "./pages/ProductDetailsPage";
+import ProductPage from "./pages/ProductPage";
+import UserProfile from "./pages/ProfilePage";
+import LoginForm from "./pages/formPages/LoginForm";
+import RegisterForm from "./pages/formPages/RegisterForm";
 
 const routes = createBrowserRouter([
   {
@@ -17,10 +17,10 @@ const routes = createBrowserRouter([
     element: <Layout />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: "/products", element: <ProductSection /> },
+      { path: "/products", element: <ProductPage /> },
       { path: "/products/:id", element: <ProductDetailsPage /> },
       { path: "/profile", element: <UserProfile /> },
-      { path: "/cart", element: <CartItems /> },
+      { path: "/cart", element: <CartPage /> },
     ],
   },
   {

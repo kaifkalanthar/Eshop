@@ -1,22 +1,8 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
+import ms from "ms";
+import Product from "../entities/Product";
 import ApiClient, { FetchResponse } from "../services/api-client";
 import productStore from "../store/ProductStore";
-import ms from "ms";
-
-export interface Product {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  discountPercentage: number;
-  rating: number;
-  stock: number;
-  brand: string;
-  category: string;
-  thumbnail: string;
-  images: string[];
-  quantity: number;
-}
 
 const useProducts = () => {
   const productQuery = productStore((s) => s.productQuery);

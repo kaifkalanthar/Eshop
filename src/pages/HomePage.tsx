@@ -1,7 +1,7 @@
-import HeroSection from "../components/HeroSection";
-import CategorySection from "../components/CategorySection";
-import Features from "../components/Features";
-import TopProducts from "../components/TopProducts";
+import HeroSection from "../components/home/HeroSection";
+import CategorySection from "../components/home/CategorySection";
+import Features from "../components/home/Features";
+import TopProducts from "../components/home/TopProducts";
 import { features } from "../data/features";
 
 const HomePage = () => {

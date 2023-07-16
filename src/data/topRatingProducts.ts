@@ -1,4 +1,4 @@
-import { Product } from "./../hooks/useProducts";
+import Product from "../entities/Product";
 
 const TOP_RATING_PRODUCTS: Product[] = [
   {

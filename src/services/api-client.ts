@@ -1,7 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { Product } from "../hooks/useProducts";
-import { SavedProducts } from "../hooks/useSavedProducts";
-import OrderedProductStore from "../store/OrderedProducts";
+import Product from "../entities/Product";
+import SavedProducts from "../entities/SavedProducts";
 
 export interface FetchResponse<T> {
   limit: number;
@@ -28,7 +27,7 @@ class ApiClient<T> {
       .then((res) => res.data);
   };
 
-  checkout = (orderedProduct: Product[], selectedItems: Product[]) => {
+  checkout = (selectedItems: Product[]) => {
     return stripeAxiosInstance
       .post(this.endpoint, {
         selectedItems,
@@ -38,12 +37,6 @@ class ApiClient<T> {
           window.location.href = res.data.url;
         }
         return res.data;
-      })
-      .catch(() => {
-        const setOrderedProducts = OrderedProductStore(
-          (s) => s.setOrderedProducts
-        );
-        setOrderedProducts(orderedProduct);
       });
   };
 
@@ -59,7 +52,6 @@ class ApiClient<T> {
     return await firebaseAxiosInstance
       .get<SavedProducts>(`/${userId}.json`)
       .then((res) => res.data);
-    
   };
 
   updateCartItem = async (

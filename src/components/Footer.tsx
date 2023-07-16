@@ -12,9 +12,9 @@ const Footer = () => {
       >
         <Text>© 2023 Eshop. All rights reserved.</Text>
         <Text mx={2}>|</Text>
-        <Link to="/products">Privacy Policy</Link>
+        <Link to="#">Privacy Policy</Link>
         <Text mx={2}>|</Text>
-        <Link to="/products">Terms of Service</Link>
+        <Link to="#">Terms of Service</Link>
       </Flex>
     </Box>
   );

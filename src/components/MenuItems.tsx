@@ -4,7 +4,7 @@ import { HiOutlineShoppingBag } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import CheckoutStore from "../store/CheckoutStore";
 import userStore from "../store/UserStore";
-import ColorModeChange from "./ColorModeChange";
+import ColorModeChange from "./button/ColorModeChange";
 
 const MenuItems = () => {
   const user = userStore((s) => s.user);
