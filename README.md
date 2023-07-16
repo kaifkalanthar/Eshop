@@ -55,7 +55,7 @@ Now, Installation of the app(Website) https://github.com/kaifkalanthar/Eshop clo
 #### STEP-1: Firebase Config
 #### Environment Variables
 
-To run this project, you will need to add the following environment variables to your .env file
+To run this project, you will need to add the following environment variables to your `.env` file
 
 ```
 VITE_API_KEY = YOUR_API_KEY 
@@ -68,7 +68,7 @@ VITE_FIREBASE_URL = YOUR_FIREBASE_URL
 # if you could not find firebase url in SDK setup and configuration you just go to realtime database,copy the url and paste in YOUR_FIREBASE_URL
 ```
 
-go to /src/config/firebase-config.ts
+go to /src/config/`firebase-config.ts`
 
 ```
 import { initializeApp } from "firebase/app";
