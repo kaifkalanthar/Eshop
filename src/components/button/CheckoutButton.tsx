@@ -44,7 +44,7 @@ const CheckoutButton = ({ data, label }: Props) => {
       }
       await apiClient.checkout(selectedItems);
     } catch (error) {
-      apiClient.updateCartItem(user.uid, data);
+      //apiClient.updateCartItem(user.uid, data);
     }
     setIsLoading(false);
   };
