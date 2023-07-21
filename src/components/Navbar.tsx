@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import { useWindowScroll } from "react-use";
 import logo from "../assets/logo.jpg";
 import MenuItems from "./MenuItems";
+import useSavedProducts from "../hooks/useSavedProducts";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { colorMode } = useColorMode();
-
   const { y: scrollY } = useWindowScroll();
 
+  useSavedProducts(true);
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(scrollY > 0);

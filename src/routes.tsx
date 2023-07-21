@@ -17,10 +17,10 @@ const routes = createBrowserRouter([
     element: <Layout />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: "/products", element: <ProductPage /> },
-      { path: "/products/:id", element: <ProductDetailsPage /> },
-      { path: "/profile", element: <UserProfile /> },
-      { path: "/cart", element: <CartPage /> },
+      { path: "products", element: <ProductPage /> },
+      { path: "products/:id", element: <ProductDetailsPage /> },
+      { path: "profile", element: <UserProfile /> },
+      { path: "cart", element: <CartPage /> },
     ],
   },
   {

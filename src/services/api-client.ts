@@ -57,7 +57,7 @@ class ApiClient<T> {
   updateCartItem = async (
     userId: string,
     cartItems: Product[],
-    orderedProducts?: Product[]
+    orderedProducts: Product[]
   ) => {
     return await firebaseAxiosInstance
       .put<SavedProducts>(`/${userId}.json`, {

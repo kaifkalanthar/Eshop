@@ -30,7 +30,7 @@ const MenuItems = () => {
             py={1}
             fontSize="xs"
           >
-            {checkoutItems.length}
+            {checkoutItems ? checkoutItems.length : 0}
           </Badge>
         </Link>
       </Box>

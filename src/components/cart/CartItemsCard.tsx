@@ -16,7 +16,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { IoMdAdd, IoMdRemove } from "react-icons/io";
 import Product from "../../entities/Product";
 import useSavedProducts from "../../hooks/useSavedProducts";
-import ApiClient from "../../services/api-client";
+import useUpdateSavedProducts from "../../hooks/useUpdateSavedProducts";
 import CheckoutStore from "../../store/CheckoutStore";
 import userStore from "../../store/UserStore";
 import { getDiscount } from "../product/ProductAttributes";
@@ -30,17 +30,18 @@ const CartItemsCard = ({ cart }: Props) => {
   const deleteCheckoutItems = CheckoutStore((s) => s.deleteCheckoutItems);
   const increaseQuantity = CheckoutStore((s) => s.increaseQuantity);
   const decreaseQuantity = CheckoutStore((s) => s.decreaseQuantity);
-  const { data, error, isLoading } = useSavedProducts();
+  const { data, error, isLoading } = useSavedProducts(true);
   if (!cart.quantity) cart.quantity = 1;
   if (isLoading) return <Spinner />;
   if (error) return <Heading>Unexpected error occurred</Heading>;
-  const apiClient = new ApiClient<Product>();
+
+  const { mutate } = useUpdateSavedProducts();
   const updateCartItem = () => {
-    apiClient.updateCartItem(
-      user.uid,
-      checkoutItems.filter((item) => item.id !== cart.id),
-      data?.orderedProducts
-    );
+    mutate({
+      userId: user.uid,
+      cart: checkoutItems.filter((item) => item.id !== cart.id),
+      orderedProducts: data?.orderedProducts || [],
+    });
   };
 
   const handleDelete = async (cart: Product) => {

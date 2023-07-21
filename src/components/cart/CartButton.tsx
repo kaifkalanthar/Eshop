@@ -9,6 +9,7 @@ import CheckoutStore from "../../store/CheckoutStore";
 import userStore from "../../store/UserStore";
 import CustomButton from "../button/CustomButton";
 import ErrorPage from "../../pages/ErrorPage";
+import useUpdateSavedProducts from "../../hooks/useUpdateSavedProducts";
 
 interface Props {
   product: Product;
@@ -19,11 +20,16 @@ const CartButton = ({ product }: Props) => {
   const toast = useToast();
   const user = userStore((s) => s.user);
   const { checkoutItems, increaseQuantity, setCheckoutItems } = CheckoutStore();
-  const isCartItem = checkoutItems.find((items) => items.id === product.id);
+
+  const isCartItem = checkoutItems
+    ? checkoutItems.find((items) => items.id === product.id)
+    : null;
   const [quantity, setQuantity] = useState(
     !isCartItem?.quantity ? 1 : isCartItem?.quantity
   );
   const { data, error } = useSavedProducts();
+  const { mutate } = useUpdateSavedProducts();
+
   if (error) return <ErrorPage />;
   const apiClient = new ApiClient();
 
@@ -49,29 +55,34 @@ const CartButton = ({ product }: Props) => {
           temp[i].quantity = quantity + 1;
         }
       }
-      await apiClient.updateCartItem(user.uid, temp, data?.orderedProducts);
+      if (data?.orderedProducts)
+        mutate({
+          userId: user.uid,
+          cart: temp,
+          orderedProducts: data?.orderedProducts,
+        });
       setIsLoading(false);
     }
     // Otherwise, add to cart
     else {
-      setCheckoutItems([product, ...checkoutItems]);
+      setCheckoutItems([product, ...(checkoutItems || [])]);
       setIsLoading(true);
       const data = await apiClient.getSavedProducts(user.uid);
       let cartItems: Product[] = [];
       if (data.cart === undefined) {
         cartItems = [product];
-        await apiClient.updateCartItem(
-          user.uid,
-          [product],
-          data.orderedProducts
-        );
+        mutate({
+          userId: user.uid,
+          cart: cartItems,
+          orderedProducts: data?.orderedProducts ? data.orderedProducts : [],
+        });
       } else {
         cartItems = [product, ...checkoutItems];
-        await apiClient.updateCartItem(
-          user.uid,
-          cartItems,
-          data?.orderedProducts
-        );
+        mutate({
+          userId: user.uid,
+          cart: cartItems,
+          orderedProducts: data?.orderedProducts ? data.orderedProducts : [],
+        });
       }
       setIsLoading(false);
       toast({

@@ -1,25 +1,17 @@
-import { GridItem, SimpleGrid, Spinner, Stack } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { GridItem, SimpleGrid, Stack } from "@chakra-ui/react";
 import { Navigate } from "react-router-dom";
-import CartSummary from "../components/cart/CartSummary";
 import CheckoutButton from "../components/button/CheckoutButton";
+import CartItemsCard from "../components/cart/CartItemsCard";
+import CartSummary from "../components/cart/CartSummary";
 import useSavedProducts from "../hooks/useSavedProducts";
 import CheckoutStore from "../store/CheckoutStore";
 import userStore from "../store/UserStore";
-import CartItemsCard from "../components/cart/CartItemsCard";
 
-const CartItems = () => {
+const CartPage = () => {
   const user = userStore((s) => s.user);
   if (!user) return <Navigate to="/login" />;
-  const { data, isLoading } = useSavedProducts();
   const checkoutItems = CheckoutStore((s) => s.checkoutItems);
-  const setCheckoutItems = CheckoutStore((s) => s.setCheckoutItems);
-
-  useEffect(() => {
-    if (data?.cart) setCheckoutItems(data?.cart);
-  }, [data]);
-
-  if (isLoading) return <Spinner />;
+  useSavedProducts(true); //Dynamically setting refetchOnMount
 
   return (
     <>
@@ -41,4 +33,4 @@ const CartItems = () => {
   );
 };
 
-export default CartItems;
+export default CartPage;

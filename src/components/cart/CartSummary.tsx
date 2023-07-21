@@ -42,11 +42,12 @@ const CartSummary = () => {
         Total amount{" "}
         <span style={{ fontWeight: "bold", color: "#ff69b4" }}>
           $
-          {checkoutItems?.reduce((total, item) => {
-            const discount = getDiscount(item.price, item.discountPercentage);
-            total += discount * (!item.quantity ? 1 : item.quantity);
-            return total;
-          }, 0)}
+          {checkoutItems &&
+            checkoutItems?.reduce((total, item) => {
+              const discount = getDiscount(item.price, item.discountPercentage);
+              total += discount * (!item.quantity ? 1 : item.quantity);
+              return total;
+            }, 0)}
         </span>
       </Heading>
     </>
