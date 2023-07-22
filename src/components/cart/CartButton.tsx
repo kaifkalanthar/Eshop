@@ -88,7 +88,7 @@ const CartButton = ({ product }: Props) => {
       toast({
         title: "Added to cart",
         status: "success",
-        duration: ms("5s"),
+        duration: ms("1s"),
         isClosable: false,
         position: "top",
       });

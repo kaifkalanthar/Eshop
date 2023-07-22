@@ -6,6 +6,7 @@ import useSavedProducts from "../../hooks/useSavedProducts";
 import ApiClient from "../../services/api-client";
 import userStore from "../../store/UserStore";
 import CustomButton from "./CustomButton";
+import useUpdateSavedProducts from "../../hooks/useUpdateSavedProducts";
 
 interface Props {
   label: string;
@@ -16,6 +17,7 @@ const CheckoutButton = ({ data, label }: Props) => {
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const { data: cartItems } = useSavedProducts();
+  const { mutate } = useUpdateSavedProducts();
 
   const handleCheckout = async (selectedItems: Product[]) => {
     if (!user.uid)
@@ -34,18 +36,13 @@ const CheckoutButton = ({ data, label }: Props) => {
     } else {
       orderedProducts = [...selectedItems];
     }
-    try {
-      if (cartItems) {
-        await apiClient.updateCartItem(
-          user.uid,
-          cartItems?.cart,
-          orderedProducts
-        );
-      }
-      await apiClient.checkout(selectedItems);
-    } catch (error) {
-      //apiClient.updateCartItem(user.uid, data);
-    }
+
+    mutate({
+      userId: user.uid,
+      cart: cartItems?.cart || [],
+      orderedProducts: orderedProducts,
+    });
+    await apiClient.checkout(selectedItems);
     setIsLoading(false);
   };
 

@@ -12,6 +12,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 
+import { useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { IoMdAdd, IoMdRemove } from "react-icons/io";
 import Product from "../../entities/Product";
@@ -27,7 +28,7 @@ interface Props {
 const CartItemsCard = ({ cart }: Props) => {
   const user = userStore((s) => s.user);
   const checkoutItems = CheckoutStore((s) => s.checkoutItems);
-  const deleteCheckoutItems = CheckoutStore((s) => s.deleteCheckoutItems);
+  const [counter, setCounter] = useState(cart.quantity ? cart.quantity : 1);
   const increaseQuantity = CheckoutStore((s) => s.increaseQuantity);
   const decreaseQuantity = CheckoutStore((s) => s.decreaseQuantity);
   const { data, error, isLoading } = useSavedProducts(true);
@@ -36,18 +37,6 @@ const CartItemsCard = ({ cart }: Props) => {
   if (error) return <Heading>Unexpected error occurred</Heading>;
 
   const { mutate } = useUpdateSavedProducts();
-  const updateCartItem = () => {
-    mutate({
-      userId: user.uid,
-      cart: checkoutItems.filter((item) => item.id !== cart.id),
-      orderedProducts: data?.orderedProducts || [],
-    });
-  };
-
-  const handleDelete = async (cart: Product) => {
-    deleteCheckoutItems(cart);
-    updateCartItem();
-  };
 
   return (
     <>
@@ -84,15 +73,49 @@ const CartItemsCard = ({ cart }: Props) => {
                   aria-label="add"
                   icon={<IoMdAdd />}
                   onClick={() => {
+                    if (counter === 10) return;
+                    setCounter(counter + 1);
                     increaseQuantity(cart);
+                    const temp = checkoutItems;
+                    for (var i = 0; i < temp.length; i++) {
+                      if (temp[i].id === cart.id) {
+                        if (!cart.quantity) {
+                          temp[i].quantity = 1;
+                        } else {
+                          temp[i].quantity += 1;
+                        }
+                      }
+                    }
+                    mutate({
+                      userId: user.uid,
+                      cart: temp,
+                      orderedProducts: data?.orderedProducts || [],
+                    });
                   }}
                 />
-                <Button px={2}>{cart.quantity}</Button>
+                <Button px={2}>{counter}</Button>
                 <IconButton
                   aria-label="sub"
                   icon={<IoMdRemove />}
                   onClick={() => {
+                    if (counter === 1) return;
+                    setCounter(counter - 1);
                     decreaseQuantity(cart);
+                    const temp = checkoutItems;
+                    for (var i = 0; i < temp.length; i++) {
+                      if (temp[i].id === cart.id) {
+                        if (!cart.quantity) {
+                          temp[i].quantity = 1;
+                        } else {
+                          temp[i].quantity -= 1;
+                        }
+                      }
+                    }
+                    mutate({
+                      userId: user.uid,
+                      cart: temp,
+                      orderedProducts: data?.orderedProducts || [],
+                    });
                   }}
                 />
               </ButtonGroup>
@@ -100,7 +123,13 @@ const CartItemsCard = ({ cart }: Props) => {
                 size="sm"
                 width="10%"
                 colorScheme="red"
-                onClick={() => handleDelete(cart)}
+                onClick={() => {
+                  mutate({
+                    userId: user.uid,
+                    cart: checkoutItems.filter((item) => item.id !== cart.id),
+                    orderedProducts: data?.orderedProducts || [],
+                  });
+                }}
               >
                 <Icon as={AiOutlineDelete} />
               </Button>

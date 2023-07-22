@@ -26,7 +26,8 @@ const CategorySection = () => {
   const carouselSettings = {
     additionalTransfrom: 0,
     arrows: true,
-    autoPlay: true,
+    grabCursor: true,
+    autoPlay: false,
     autoPlaySpeed: 1000,
     centerMode: false,
     className: "",
@@ -37,7 +38,6 @@ const CategorySection = () => {
     infinite: true,
     itemClass: "",
     keyBoardControl: true,
-    minimumTouchDrag: 50,
     partialVisible: false,
     renderButtonGroupOutside: false,
     renderDotsOutside: false,
