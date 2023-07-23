@@ -1,4 +1,4 @@
-import { Box, GridItem, SimpleGrid } from "@chakra-ui/react";
+import { Box, GridItem, HStack, SimpleGrid } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import useProduct from "../hooks/useProduct";
 import CartButton from "../components/cart/CartButton";
@@ -22,10 +22,10 @@ const ProductDetailsPage = () => {
       <GridItem>
         <ProductAttributes data={data} />
         <Box marginX="auto" width="80%">
-          <Box mb={5}>
+          <HStack mb={5}>
             <CartButton product={data} />
-          </Box>
-          <CheckoutButton label="Buy Now" data={[data]} />
+            <CheckoutButton label="Buy Now" data={[data]} />
+          </HStack>
         </Box>
       </GridItem>
     </SimpleGrid>

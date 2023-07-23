@@ -10,11 +10,13 @@ const ProductSection = () => {
       <Grid
         templateAreas={{
           base: `'nav' 'main'`,
+          md: `'nav nav' 'aside main'`,
           lg: `'nav nav' 'aside main'`,
         }}
         templateColumns={{
           base: "1fr",
-          lg: "300px 1fr",
+          md: "250px 1fr",
+          lg: "250px 1fr",
         }}
         gap={5}
       >

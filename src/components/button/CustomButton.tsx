@@ -8,6 +8,7 @@ interface Props {
   bg?: any;
   margin?: any;
   valid?: boolean;
+  size?: string;
 }
 
 const CustomButton = ({

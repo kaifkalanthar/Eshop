@@ -6,7 +6,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { RouterProvider } from "react-router-dom";
-
+import "./index.css";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

@@ -5,6 +5,7 @@ import { useWindowScroll } from "react-use";
 import logo from "../assets/logo.jpg";
 import MenuItems from "./MenuItems";
 import useSavedProducts from "../hooks/useSavedProducts";
+import ColorModeChange from "./button/ColorModeChange";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -26,7 +27,6 @@ const Navbar = () => {
   return (
     <HStack
       padding={5}
-      mb={5}
       zIndex={999}
       display="flex"
       height={"90px"}
@@ -49,6 +49,9 @@ const Navbar = () => {
       </HStack>
       <Show above="md">
         <MenuItems />
+      </Show>
+      <Show below="sm">
+        <ColorModeChange />
       </Show>
     </HStack>
   );

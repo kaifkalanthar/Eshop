@@ -17,7 +17,7 @@ const UserProfile = () => {
   if (!user.uid) return null;
 
   return (
-    <Stack marginX={"auto"} spacing={5}>
+    <Stack marginX={"auto"} spacing={5} mt={5}>
       <ProfileHeader />
       <OrderedProducts />
     </Stack>

@@ -15,11 +15,12 @@ const CartPage = () => {
   const checkoutItems = CheckoutStore((s) => s.checkoutItems);
   const { data, error, isLoading } = useSavedProducts(true); //Dynamically setting refetchOnMount
   if (isLoading) return <Spinner />;
-  if (!checkoutItems && !data?.cart) return <NoItems />;
+  if ((checkoutItems && checkoutItems.length === 0) || !data?.cart)
+    return <NoItems />;
   if (error) return <ErrorPage />;
   return (
     <>
-      <SimpleGrid columns={{ sm: 1, md: 1, lg: 2 }} spacing={10}>
+      <SimpleGrid columns={{ sm: 1, md: 1, lg: 2 }} spacing={10} my={5}>
         <GridItem>
           <Stack spacing={5}>
             {checkoutItems?.map((item, index) => (

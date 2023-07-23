@@ -9,7 +9,6 @@ import {
   Image,
   Spinner,
   Stack,
-  Text,
 } from "@chakra-ui/react";
 
 import { useState } from "react";
@@ -35,7 +34,47 @@ const CartItemsCard = ({ cart }: Props) => {
   if (!cart.quantity) cart.quantity = 1;
   if (isLoading) return <Spinner />;
   if (error) return <Heading>Unexpected error occurred</Heading>;
+  const handleIncreaseButton = () => {
+    if (counter === 10) return;
+    setCounter(counter + 1);
+    increaseQuantity(cart);
+    const temp = checkoutItems;
+    for (var i = 0; i < temp.length; i++) {
+      if (temp[i].id === cart.id) {
+        if (!cart.quantity) {
+          temp[i].quantity = 1;
+        } else {
+          temp[i].quantity += 1;
+        }
+      }
+    }
+    mutate({
+      userId: user.uid,
+      cart: temp,
+      orderedProducts: data?.orderedProducts || [],
+    });
+  };
 
+  const handleDecreaseButton = () => {
+    if (counter === 1) return;
+    setCounter(counter - 1);
+    decreaseQuantity(cart);
+    const temp = checkoutItems;
+    for (var i = 0; i < temp.length; i++) {
+      if (temp[i].id === cart.id) {
+        if (!cart.quantity) {
+          temp[i].quantity = 1;
+        } else {
+          temp[i].quantity -= 1;
+        }
+      }
+    }
+    mutate({
+      userId: user.uid,
+      cart: temp,
+      orderedProducts: data?.orderedProducts || [],
+    });
+  };
   const { mutate } = useUpdateSavedProducts();
 
   return (
@@ -50,6 +89,7 @@ const CartItemsCard = ({ cart }: Props) => {
         <Box>
           <Image
             width={["140px", "160px"]}
+            minW={"100px"}
             height="90px"
             objectFit={"fill"}
             src={cart.images[0]}
@@ -65,7 +105,7 @@ const CartItemsCard = ({ cart }: Props) => {
               <Heading fontSize="xl">
                 ${getDiscount(cart?.price, cart.discountPercentage)}
               </Heading>
-              <Text textDecoration={"line-through"}>${cart.price}</Text>
+              {/* <Text textDecoration={"line-through"}>${cart.price}</Text> */}
             </HStack>
             <HStack>
               <ButtonGroup isAttached variant="outline" size="sm">
@@ -73,49 +113,15 @@ const CartItemsCard = ({ cart }: Props) => {
                   aria-label="add"
                   icon={<IoMdAdd />}
                   onClick={() => {
-                    if (counter === 10) return;
-                    setCounter(counter + 1);
-                    increaseQuantity(cart);
-                    const temp = checkoutItems;
-                    for (var i = 0; i < temp.length; i++) {
-                      if (temp[i].id === cart.id) {
-                        if (!cart.quantity) {
-                          temp[i].quantity = 1;
-                        } else {
-                          temp[i].quantity += 1;
-                        }
-                      }
-                    }
-                    mutate({
-                      userId: user.uid,
-                      cart: temp,
-                      orderedProducts: data?.orderedProducts || [],
-                    });
+                    handleIncreaseButton();
                   }}
                 />
-                <Button px={2}>{counter}</Button>
+                <Button px={2}>{cart.quantity}</Button>
                 <IconButton
                   aria-label="sub"
                   icon={<IoMdRemove />}
                   onClick={() => {
-                    if (counter === 1) return;
-                    setCounter(counter - 1);
-                    decreaseQuantity(cart);
-                    const temp = checkoutItems;
-                    for (var i = 0; i < temp.length; i++) {
-                      if (temp[i].id === cart.id) {
-                        if (!cart.quantity) {
-                          temp[i].quantity = 1;
-                        } else {
-                          temp[i].quantity -= 1;
-                        }
-                      }
-                    }
-                    mutate({
-                      userId: user.uid,
-                      cart: temp,
-                      orderedProducts: data?.orderedProducts || [],
-                    });
+                    handleDecreaseButton();
                   }}
                 />
               </ButtonGroup>

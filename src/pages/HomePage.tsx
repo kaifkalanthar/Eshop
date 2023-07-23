@@ -1,18 +1,17 @@
-import HeroSection from "../components/home/HeroSection";
+import { Stack } from "@chakra-ui/react";
 import CategorySection from "../components/home/CategorySection";
-import Features from "../components/home/Features";
+import HeroSection from "../components/home/HeroSection";
+import Service from "../components/home/Service";
 import TopProducts from "../components/home/TopProducts";
-import { features } from "../data/features";
 
 const HomePage = () => {
   return (
-    <>
+    <Stack spacing={10}>
       <HeroSection />
-      <CategorySection />
-      <Features feature={features[0]} />
       <TopProducts />
-      <Features feature={features[1]} />
-    </>
+      <CategorySection />
+      <Service />
+    </Stack>
   );
 };
 

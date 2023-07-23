@@ -27,8 +27,8 @@ const CategorySection = () => {
     additionalTransfrom: 0,
     arrows: true,
     grabCursor: true,
-    autoPlay: false,
-    autoPlaySpeed: 1000,
+    autoPlay: true,
+    autoPlaySpeed: 800,
     centerMode: false,
     className: "",
     customButtonGroup: null,
@@ -48,17 +48,15 @@ const CategorySection = () => {
   };
 
   return (
-    <Box my={5}>
+    <Box mb={10}>
       <Heading fontWeight="medium" textAlign="center" padding={10}>
         Category
       </Heading>
-      <Box zIndex={599}>
-        <Carousel responsive={responsive} {...carouselSettings}>
-          {categories.map((category, index) => (
-            <CategoryCard key={index} category={category} />
-          ))}
-        </Carousel>
-      </Box>
+      <Carousel responsive={responsive} {...carouselSettings}>
+        {categories.map((category, index) => (
+          <CategoryCard key={index} category={category} />
+        ))}
+      </Carousel>
     </Box>
   );
 };

@@ -1,4 +1,4 @@
-import { Box, Show, Spinner, Stack } from "@chakra-ui/react";
+import { Box, Show, Spinner, Stack, useColorMode } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Footer from "./components/Footer";
@@ -23,7 +23,15 @@ const Layout = () => {
       setCheckoutItems(data?.cart);
     }
   }, [data, getStoredData, checkoutItems, setUser]);
-  if (isLoading) return <Spinner />;
+  const { colorMode } = useColorMode();
+  if (isLoading)
+    return (
+      <Stack width={"100%"} height={"100vh"}>
+        <Box m={"auto"}>
+          <Spinner size={"xl"} />
+        </Box>
+      </Stack>
+    );
   return (
     <>
       <Navbar />
@@ -36,11 +44,11 @@ const Layout = () => {
       <Show below="md">
         <Stack
           height={"100%"}
-          position={["sticky", "relative"]}
-          bottom={[0, "auto"]}
+          position={["sticky", "sticky", "relative"]}
+          bottom={[0, 0, "auto"]}
           alignItems={"center"}
           py={4}
-          bg="pink.100"
+          bg={colorMode === "light" ? "pink.300" : "#332f31"}
         >
           <MenuItems />
         </Stack>

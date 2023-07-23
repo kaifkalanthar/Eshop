@@ -17,6 +17,14 @@ const CartSummary = () => {
   return (
     <>
       <Show above="md">
+        <Heading
+          fontSize={"2xl"}
+          fontWeight={"light"}
+          textAlign={"start"}
+          py={5}
+        >
+          Summary
+        </Heading>
         <TableContainer mb={5}>
           <Table variant={"striped"} colorScheme="pink">
             <Thead>
