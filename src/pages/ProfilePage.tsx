@@ -6,6 +6,7 @@ import OrderedProducts from "../components/profile/OrderedProducts";
 import ProfileHeader from "../components/profile/ProfileHeader";
 
 const UserProfile = () => {
+  document.title = "TrendiFy | Profile";
   const user = userStore((s) => s.user);
 
   useEffect(() => {

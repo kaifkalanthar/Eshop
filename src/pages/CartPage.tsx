@@ -10,6 +10,7 @@ import NoItems from "../components/cart/NoItems";
 import ErrorPage from "./ErrorPage";
 
 const CartPage = () => {
+  document.title = "TrendiFy | Cart";
   const user = userStore((s) => s.user);
   if (!user) return <Navigate to="/login" />;
   const checkoutItems = CheckoutStore((s) => s.checkoutItems);

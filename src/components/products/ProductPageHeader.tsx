@@ -29,7 +29,7 @@ const ProductPageHeader = () => {
           <Heading
             fontSize={"lg"}
             fontWeight={"light"}
-          >{`SearchBy : ${productQuery.searchQuery}`}</Heading>
+          >{`Search : ${productQuery.searchQuery}`}</Heading>
         )}
       </Box>
       <Show below="md">

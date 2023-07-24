@@ -22,6 +22,7 @@ const schema = z.object({
 type UserData = z.infer<typeof schema>;
 
 const RegisterForm = () => {
+  document.title = "TrendiFy | Register";
   const {
     register,
     getValues,

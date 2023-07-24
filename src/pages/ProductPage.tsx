@@ -4,6 +4,7 @@ import ProductPageHeader from "../components/products/ProductPageHeader";
 import ProductSideBar from "../components/products/ProductSideBar";
 
 const ProductSection = () => {
+  document.title = "TrendiFy | Product";
   return (
     <>
       <ProductPageHeader />

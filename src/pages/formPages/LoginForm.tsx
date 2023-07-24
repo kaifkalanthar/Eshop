@@ -16,6 +16,7 @@ import FormContainer from "../../components/form/FormContainer";
 import FormFooter from "../../components/form/FormFooter";
 
 const LoginForm = () => {
+  document.title = "TrendiFy | Login";
   const schema = z.object({
     email: z.string(),
     password: z.string(),

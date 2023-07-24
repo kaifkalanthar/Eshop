@@ -5,6 +5,7 @@ import Service from "../components/home/Service";
 import TopProducts from "../components/home/TopProducts";
 
 const HomePage = () => {
+  document.title = "TrendiFy | Home";
   return (
     <Stack spacing={10}>
       <HeroSection />

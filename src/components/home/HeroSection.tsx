@@ -38,15 +38,17 @@ const HeroSection: React.FC = () => {
     </Box>,
   ];
   return (
-    <Carousel
-      autoPlay={true}
-      infiniteLoop={true}
-      showArrows={false}
-      showThumbs={false}
-      showStatus={false}
-    >
-      {carouselItems}
-    </Carousel>
+    <Box marginX={-5}>
+      <Carousel
+        autoPlay={true}
+        infiniteLoop={true}
+        showArrows={false}
+        showThumbs={false}
+        showStatus={false}
+      >
+        {carouselItems}
+      </Carousel>
+    </Box>
   );
 };
 
