@@ -131,10 +131,11 @@ npm run build
 
 
 ## Demo
-https://eshop-ochre.vercel.app/
-#### Demo Account
-Email : user@gmail.com
 
+https://trendifyy.vercel.app/
+
+Demo Account
+Email : user@gmail.com
 Password : user#asyu
 ## Screenshots
 Home Page
