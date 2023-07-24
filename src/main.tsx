@@ -7,7 +7,7 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { RouterProvider } from "react-router-dom";
 import "./index.css";
-import ScrollMemory from "./ScrollMemory.tsx";
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
